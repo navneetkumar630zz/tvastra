@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/adminUsers.css">
+    <style>
+        aside li:nth-child(2) a{
+            color: var(--text);
+            background: var(--grey);
+            font-weight: bold;
+            border-left: 5px solid var(--text);
+        }
+    </style>
+</head>
+<body>
+    
+    <% if(message.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Failure</h5>
+            <p><%= message %></p>
+        </div>
+    <% } %>
+
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <%- include("../templetes/asideProfileDashboard_admin") %>
+    <section>
+        <h1>All Users</h1>
+        <div id="card-container">
+            <% for(i=0;i<users.length;i++){ %>
+            <div class="card">
+                <i class="fa fa-ellipsis-v options-icon" onclick="this.nextElementSibling.classList.toggle('active')"></i>
+                <ul class="options">
+                    <li onclick="window.location.href='/profile?userId=<%= users[i]._id %>'">Edit profile</li>
+                    <li onclick="window.location.href='/myAppointments?userId=<%= users[i]._id %>'">Appointments</li>
+                    <li onclick="window.location.href='/medicalReports?userId=<%= users[i]._id %>'">Medical reports</li>
+                </ul>
+                <figure>
+                    <img src="../uploads/<%= users[i].avtar? users[i].avtar : 'default-user-image.png' %>" alt="user">
+                </figure>
+                <div class="details">
+                    <h4><%= users[i].name %></h4>
+                    <ul>
+                        <li><i class="fa fa-phone"></i><span><%= users[i].mobile %></span></li>
+                        <li><i class="fa fa-envelope"></i><span><%= users[i].email %></span></li>
+                        <li><i class="fa fa-venus-mars"></i><span><%= users[i].gender %></span></li>
+                        <li><i class="far fa-calendar-alt"></i><span><%= users[i].dateCreated.toDateString() %></span></li>
+                        <li><i class="fa fa-map-marker-alt"></i><span><%= users[i].state %>, <%= users[i].Country %></span></li>
+                    </ul>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </section>
+</div>
+</main>
+
+<script src="../templetes/js/header.js"></script>
+
+</body>
+</html>

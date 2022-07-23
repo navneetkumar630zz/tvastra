@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Report</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/showReport.css">
+</head>
+<body>
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <%- include("../templetes/asideProfileDashboard") %>
+    <section>
+        <div class="header">
+            <h1>Records</h1>
+            <button type="button" class="btn-text" onclick="openModelBox()">Add Record</button>
+        </div>
+        <div id="records-container">
+            <% for(i=0;i<record.photos.length;i++){ %>
+            <div class="records">
+                <div class="record-title">
+                    <span><%= record.title %></span>
+                    <i class="far fa-trash-alt" onclick="deleteReportPic('<%= record.photos[i] %>', this.parentElement.parentElement)"></i>
+                </div>
+                <figure>
+                    <img src="../uploads/<%= record.photos[i] %>" alt="record pic">
+                </figure>
+            </div>
+            <% } %>
+        </div>
+    </section>
+</div>
+</main>
+
+<div class="model-box-background">
+    <form class="model-box" action="/addReportPic" method="POST" enctype="multipart/form-data">
+        <div class="photos">
+            <div class="selected-photos"></div>
+            <div class="add-photo">
+                <input type="hidden" name="reportId" value="<%= record._id %>">
+                <input type="file" name="reportPic" id="reportPic" accept="image/*" multiple max="5" required />
+                <label for="reportPic"><i class="fa fa-plus"></i><span>Add Photo</span></label>
+            </div>
+        </div>
+        <div class="button-group">
+            <button type="button" class="danger" onclick="closeModelBox()">Cancel</button>
+            <button type="submit" class="success">Done</button>
+        </div>
+    </form>
+</div>
+
+<%- include("../templetes/footer"); %>
+
+<script src="../templetes/js/header.js"></script>
+<script src="../templetes/js/modelBox.js"></script>
+<script>
+    async function deleteReportPic(i, recordElement) {
+        var response = await fetch('/deleteReportPic?recordId=<%= record._id %>&ind='+i);
+        if(response.ok) recordElement.style.display="none";
+    }
+
+    (function(){
+        const reportPicInput = document.getElementById("reportPic");
+        var selectedPhotoContainer = document.querySelector(".selected-photos");
+
+        reportPicInput.addEventListener("change", e=>{
+            if(reportPicInput.files.length>5){
+                alert("Maximum 5 files are allowed");
+                reportPicInput.value=null;
+                selectedPhotoContainer.innerHTML='';
+            }else
+            if(reportPicInput.files.length){
+                selectedPhotoContainer.innerHTML='';
+                for(i=0;i<reportPicInput.files.length;i++){
+                    var imgElem = document.createElement("img");
+                    imgElem.src = URL.createObjectURL(reportPicInput.files[i]);
+                    selectedPhotoContainer.appendChild(imgElem);
+                    imgElem.onload = function(){
+                        URL.revokeObjectURL(this.src);
+                    }
+                }
+            }
+        })
+    })();
+</script>
+</body>
+</html>

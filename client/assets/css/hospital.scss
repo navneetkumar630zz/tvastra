@@ -1,0 +1,276 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/heroSection";
+@import "../../templetes/css/asideFilters";
+@import "../../templetes/css/needHelp";
+@import "../../templetes/css/footer";
+@import "../../templetes/css/pagination";
+
+#hero, aside {
+  display: none;
+}
+
+header nav ul li:nth-child(2) a {
+  color: var(--light);
+}
+
+/* -------------------------  T O P B A R  ------------------------ */
+
+#topbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+#breadcrumb {
+  font-size: 1.1rem;
+  color: var(--text-grey);
+  text-decoration: none;
+
+  a {
+    font-size: 1.1rem;
+    color: #666;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline #666;
+    }
+  }
+}
+
+#sortby {
+  position: relative;
+
+  button {
+    color: #000;
+    border: none;
+    padding: 13px 23px;
+    background: var(--light-grey);
+  }
+
+  ul {
+    position: absolute;
+    top: 2.5rem;
+    right: 0;
+    width: max-content;
+    padding: 10px 2px;
+    background: rgba(255, 255, 255, 0.685);
+    border: 1px solid var(--dark);
+    line-height: 1.8rem;
+    transform: rotateX(90deg);
+    transform-origin: top;
+    transition: 0.2s;
+    z-index: 5;
+
+    &.active {
+      transform: rotateX(0);
+    }
+
+    li {
+      padding: 2px 10px;
+      transition: 0.2s;
+
+      &:hover {
+        cursor: default;
+        background: var(--dark);
+        border-left: 3px solid var(--dark);
+        color: var(--white);
+      }
+    }
+  }
+}
+
+/* -------------------------   H O S P I T A L S  --------------------- */
+
+@include media ($bp-tablet){
+  #hospitals {
+    padding: 0;
+  }
+}
+
+.hospital-card {
+    width: 100%;
+    border: 2px solid var(--grey);
+    margin-bottom: 1rem;
+    @include media ($bp-tablet){
+        display: grid;
+        grid-template-columns: auto 19rem;
+    }
+
+    figure {
+        width: 100%;
+        height: 17rem;
+
+        img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+    }
+
+    .details {
+        padding: 1.25rem 0.625rem;
+        @include media ($bp-tablet){
+            padding: 1.5rem;
+            padding-left: 2rem;
+            padding-right: 5px;
+        }
+
+        h5 {
+            color: var(--text);
+            font-size: 1.3rem;
+            font-weight: bold;
+            position: relative;
+            margin-left: 40px;
+            @include media ($bp-tablet){
+                margin: 0;
+            }
+
+            &::before {
+                content: "";
+                width: 2.5rem;
+                height: 2px;
+                background: var(--text);
+                position: absolute;
+                top: 9px;
+                left: -50px;
+                @include media ($bp-tablet){
+                    width: 1.5rem;
+                    left: -2rem;
+                }
+            }
+        }
+    }
+
+    ul{
+        @include media ($bp-tablet){
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, minmax(2.5rem, max-content));
+            align-items: center;
+            grid-gap: 5px 1rem;
+            margin-top: 0.6rem;
+        }
+        li {
+            margin: 1.1rem 0;
+            display: flex;
+            align-items: center;
+            @include media ($bp-tablet){
+                margin: 0;
+                font-size: 0.9rem;
+                line-height: 1.1rem;
+            }
+    
+            i {
+            width: 2rem;
+            color: var(--text);
+            font-size: 1.1rem;
+            }
+        }
+    }
+
+    .details {
+
+        .famous-treatments {
+            li {
+                display: inline-block;
+                margin: 2px;
+                border: 1px solid var(--grey);
+                border-radius: 1rem;
+                padding: 7px 0.7rem;
+                font-size: 0.7rem;
+                line-height: 1;
+
+                &.hide {
+                display: none;
+                }
+
+                &.more {
+                background: var(--light-grey);
+                cursor: default;
+                }
+            }
+
+            display: block;
+            margin: -0.6rem 0 1rem 2rem;
+        }
+        a{
+            @include media ($bp-tablet){
+                margin: 0;
+            }
+        }
+    }
+}
+
+/* -----------------------------------  T A B L E T   V I E W  ---------------------------------- */
+@include media ($bp-tablet) {
+  #hero {
+    display: block;
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(rgba(147, 190, 222, 0.85), rgba(147, 190, 222, 0.85)), url(../images/hospital\ background.jpg);
+    background-size: cover;
+    background-position: center center;
+
+    .container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    h1 {
+      color: #000;
+      font-weight: normal;
+
+      u {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .hospital-card {
+
+    .details {
+      h5 {
+      }
+
+      ul {
+      }
+
+      li {
+      }
+
+      a {
+        margin: 0;
+      }
+    }
+  }
+}
+
+/* ---------------------------  D E  S K T O P   V I E W  -------------------------- */
+@include media ($bp-desktop) {
+  main .container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+  }
+
+  aside {
+    display: block;
+  }
+
+  .hospital-card .details {
+    padding: 30px;
+    padding-left: 50px;
+
+    h5 {
+      font-size: 1.5rem;
+
+      &::before {
+        width: 2.5rem;
+        left: -50px;
+      }
+    }
+  }
+}

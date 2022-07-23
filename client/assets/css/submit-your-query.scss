@@ -1,0 +1,10 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/formPage";
+
+@include media($bp-tablet){
+    .form{
+        width: 40rem;
+    }
+}

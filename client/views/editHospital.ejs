@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify@3.1.0/dist/tagify.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/editHospital.css">
+</head>
+<body>
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <%- include("../templetes/asideProfileDashboard_admin") %>
+    <section>
+        <form method="POST" action="/editHospital<%= hospital._id? '?hospitalId='+hospital._id: '' %>" enctype="multipart/form-data">
+            <div class="header">
+                <legend><h1>Verify/Edit Hospital</h1></legend>
+                <button class="btn-text" type="submit">Save Changes</button>
+            </div>
+            <label>Name</label>
+            <input type="text" name="name" value="<%= hospital.name? hospital.name: '' %>" />
+            <label>Description</label>
+            <textarea name="description"><%= hospital.description? hospital.description: '' %></textarea>
+            <label>Specialities</label>
+            <input type="text" data-tag-input="" name="specialities" value="<%= hospital.specialities? hospital.specialities: '' %>" />
+            <label>Number of beds</label>
+            <input type="number" name="nBeds" max="10000" value="<%= hospital.nBeds? hospital.nBeds: '' %>" />
+            <label>Address</label>
+            <input type="text" name="address" value="<%= hospital.address? hospital.address: '' %>" />
+            <label>Phone no</label>
+            <input type="tel" name="phone" oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Only digits without spaces are allowed" value="<%= hospital.phone? hospital.phone: '' %>" />
+            <label>Picture</label>
+            <input type="file" name="picture" accept="image/* %>" />
+            <label>Treatments</label>
+            <input type="text" data-tag-input="" name="treatments" value="<%= hospital.treatments? hospital.treatments: '' %>" />
+            <input type="hidden" name="oldName" value="<%= hospital.oldName %>">
+        </form>
+    </section>
+</div>
+</main>
+
+<script src="../templetes/js/header.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify@3.1.0/dist/tagify.min.js"></script>
+<script>
+    var tagInput = document.querySelectorAll("[data-tag-input]");
+    for(i=0; i<tagInput.length; i++){
+        new Tagify(tagInput[i], {
+            duplicates: false,
+            trim: true,
+            maxTags: 5
+        });
+    }
+</script>
+
+</body>
+</html>

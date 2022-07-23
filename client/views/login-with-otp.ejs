@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login with OTP</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/login-with-otp.css">
+</head>
+<body>
+    
+<%- include("../templetes/header") %>
+
+<main>
+    <div class="form">
+        <h5 class="form-title">Login</h5>
+        <form method="POST">
+            <input type="tel" name="mobile" placeholder="Enter Your Mobile Number">
+            <div><a href="/login">Login With Password</a></div>
+            <button type="submit">Get OTP</button>
+        </form>
+        <div class="form-foot">
+            Not Registered? <a href="/signup">Sign Up</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    All rights reserved &copy; Tvastra 2020
+</footer>
+<script src="../templetes/js/header.js"></script>
+    
+</body>
+</html>

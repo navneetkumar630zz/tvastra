@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/bookAppointment.css">
+</head>
+<body>
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <section>
+        <div id="doctor-box">
+            <h1>In Clinic Appointment</h1>
+            <ul>
+                <li><i class="far fa-calendar-plus"></i><%= schedule.date.toDateString() %></li>
+                <li><i class="far fa-clock"></i>From <%= slot.startTime %></li>
+                <li><i class="far fa-clock"></i>To <%= slot.endTime %></li>
+                <li><a href="/doctors">Change date & time</a></li>
+            </ul>
+            <div id="doctor-info">
+                <figure>
+                    <div>
+                        <img src="/uploads/<%= doctor.avtar?doctor.avtar:'default-user-image.png' %>" alt="doctor">
+                    </div>
+                    <figcaption>
+                        <ul>
+                            <li><%= doctor.name %></li>
+                            <li><%= doctor.hospitals.join(", ") %></li>
+                            <li><%= doctor.qualifications.join(", ") %></li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+            <div id="hospital-info">
+                <figure>
+                    <div>
+                        <img src="/assets/images/apollo hospital.jpeg" alt="hospital">
+                    </div>
+                    <figcaption>
+                        <ul>
+                            <li><%= schedule.hospital %></li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="form">
+        <h2 class="form-title">Patient Details</h2>
+        <form action="/bookAppointment" method="POST">
+
+            <input type="hidden" name="doctorId" value="<%= doctor._id %>" />
+            <input type="hidden" name="doctorName" value="<%= doctor.name %>" />
+            <input type="hidden" name="doctorAvtar" value="<%= doctor.avtar %>" />
+            <input type="hidden" name="doctorHospitals" value="<%= doctor.hospitals %>" />
+            <input type="hidden" name="doctorQualifications" value="<%= doctor.qualifications %>" />
+            <input type="hidden" name="slotId" value="<%= slot._id %>" />
+            <input type="hidden" name="scheduleId" value="<%= schedule._id %>" />
+            <input type="hidden" name="hospital" value="<%= schedule.hospital %>" />
+            <input type="hidden" name="date" value="<%= schedule.date %>" />
+            <input type="hidden" name="startTime" value="<%= slot.startTime %>" />
+            <input type="hidden" name="endTime" value="<%= slot.endTime %>" />
+
+            <h5>This appointment is for:</h5>
+            <div>
+                <input type="radio" name="isFor" id="self" value="self" onchange="other(this)" checked />
+                <label for="self">Self</label>
+            </div>
+            <div>
+                <input type="radio" name="isFor" id="someoneElse" value="someoneElse" onchange="other(this)" onblur="other(this)" />
+                <label for="someoneElse">Someone else</label>
+            </div>
+            <h5>Please provide the following informations:</h5>
+            <label>Patient's full name:</label>
+            <input type="text" name="name" value="Navneet Kumar" readonly>
+            <label>Mobile number:</label>
+            <input type="text" name="mobile" value="9333456876" readonly>
+            <label>Patient's mobile number:</label>
+            <input type="text" name="patientMobile" value="9333456876" readonly>
+            <label>Patient's full name:</label>
+            <input type="email" name="email" value="navneet@630.com" readonly>
+            <button type="submit">Book Appointment</button>
+        </form>
+        </div>
+    </section>
+</div>
+</main>
+
+<%- include("../templetes/footer"); %>
+
+<script src="/assets/script/header.js"></script>
+<script>
+
+    var nameInput = document.querySelector("[name='name']");
+    var patientMobileInput = document.querySelector("[name='patientMobile']");
+    var emailInput = document.querySelector("[name='email']");
+
+    var nameValue = nameInput.value;
+    var patientMobileValue = patientMobileInput.value;
+    var emailValue = emailInput.value;
+
+    var someoneElseInput = document.getElementById("someoneElse");
+
+    function other(e)
+    {
+        if (someoneElseInput.checked){
+            nameInput.value = "";
+            patientMobileInput.value = "";
+            emailInput.value = "";
+            nameInput.readOnly = false;
+            patientMobileInput.readOnly = false;
+            emailInput.readOnly = false;
+        } else {
+            nameInput.value = nameValue;
+            patientMobileInput.value = patientMobileValue;
+            emailInput.value = emailValue;
+            nameInput.readOnly = true;
+            patientMobileInput.readOnly = true;
+            emailInput.readOnly = true;
+        }
+    }
+</script>
+</body>
+</html>

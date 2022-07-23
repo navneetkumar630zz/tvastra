@@ -1,0 +1,233 @@
+@charset "utf-8";
+
+header{
+    background: var(--white);
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 0.625rem;
+        background: var(--white);
+        z-index: 9;
+        box-shadow: 2px 0 1.25rem rgba(0, 0, 0, 0.4);
+        transform: translateY(-110%);
+        transition: 0.4s ease transform;
+        @include media ($bp-desktop){
+            flex-direction: row;
+            transform: none;
+            position: static;
+            box-shadow: none;
+            padding: 1.25rem;
+        }
+    }
+    .profile{
+        display: inline-block;
+        position: relative;
+    }
+    .profileBtn {
+        display: inline-block;
+        padding: 0.8rem 0.5rem;
+        min-width: 8rem;
+        text-align: center;
+        text-transform: uppercase;
+        position: relative;
+        cursor: pointer;
+        &::before{
+          content: "\f078";
+          font-weight: 900;
+          font-family: "Font Awesome 5 Free";
+          position: absolute;
+          top: 0.8rem;
+          right: 0.5rem;
+        }
+        &:hover ~ .profileMenu{
+          visibility: visible;
+          opacity: 1;
+          transform: translateY(0);
+        }
+    }
+    .profileMenu {
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-1rem);
+        width: 16rem;
+        padding: 1rem;
+        position: absolute;
+        top: 2.7rem;
+        right: 0;
+        transition: 0.2s ease-out;
+        z-index: 5;
+        @include media ($bp-desktop){
+          right: -1rem;
+        }
+        &:hover{
+          visibility: visible;
+          opacity: 1;
+          transform: translateY(0);
+        }
+        li a {
+            display: block;
+            padding: 0.9rem 1rem;
+            color: #000;
+            text-decoration: none;
+            transition: 0.3s;
+            &:hover{
+              border-left: 3px solid var(--text);
+              background: var(--lighter);
+              color: var(--text);
+            }
+        }
+    }
+    .profileContents {
+        border: 1px solid var(--grey);
+        border-radius: 5px;
+        background: var(--white);
+        box-shadow: 0 5px 11px -7px black;
+        cursor: pointer;
+    }
+    .profileHeader {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+        border-bottom: 1px solid var(--grey);
+        figure {
+            width: 4rem;
+            max-height: 3.5rem;
+            border-radius: 3px;
+            overflow: hidden;
+            img{
+                height: 100%;
+            }
+        }
+        div{
+            margin-left: 1rem;
+            big {
+                color: var(--text);
+                font-weight: bold;
+                display: inline-block;
+                width: 100%;
+                text-transform: uppercase;
+                margin-bottom: 0.4rem;
+            }
+            small {
+                font-size: 0.8rem;
+                color: var(--text-grey);
+            }
+        }
+    }
+}
+nav{
+    ul{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        line-height: 2.5rem;
+        margin-top: 0.625rem;
+        margin-bottom: 0.625rem;
+        @include media ($bp-tablet){
+            flex-direction: row;
+            line-height: normal;
+        }
+        a{
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.625rem 1rem;
+            &:hover {
+              color: var(--light);
+              text-decoration: none;
+            }
+        }
+    }
+}
+.logo{
+    width: 12rem;
+    @include media ($bp-desktop){
+        width: 15%;
+    }
+}
+#headerButtons{
+    button {
+        font-size: 0.9rem;
+        border-radius: 3px;
+        position: relative;
+        z-index: 1;
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            z-index: -1;
+            transition: transform 0.5s;
+            transform: scaley(0);
+            transform-origin: 0 0;
+            transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+        }
+        &:hover{
+            &::before {
+              transform: scaleY(1);
+            }
+        }
+    }
+    a:first-child button:hover{
+        color: var(--text);
+    }
+    a:nth-child(2) button:hover {
+        background: var(--dark);
+      }
+    .profile{
+        display: none;
+        @include media ($bp-desktop){
+            display: inline-block;
+        }
+    }
+}
+#mobile-header{
+    display: flex;
+    justify-content: space-between;
+    .logo{
+        width: 8.9rem;
+        padding: 1rem;
+    }
+    @include media ($bp-desktop){
+        display: none;
+    }
+
+    .profileMenu{
+        right: -3rem;
+    }
+}
+#mobileHeaderBtns {
+    display: flex;
+    align-items: center;
+    .profileBtn{
+        min-width: 4rem;
+        &::before{
+          content: none;
+        }
+        img {
+            width: 2rem;
+            border-radius: 50%;
+        }
+    }
+    button {
+        color: #000;
+        border: none;
+        background: none;
+        font-size: 1.4em;
+        top: 0.625rem;
+        right: 0;
+    }
+}
+#burger-close-icon {
+    position: fixed;
+    z-index: 10;
+    display: none;
+}

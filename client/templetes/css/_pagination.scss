@@ -1,0 +1,42 @@
+@charset "utf-8";
+#pagination{
+    width: max-content;
+    margin: 2rem auto ;
+    display: flex;
+    .pageNo {
+        a{
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--lighter);
+            margin: 0 0.5rem;
+            font-size: 0.8rem;
+            color: var(--dark);
+            &:hover{
+                text-decoration: none;
+                background: var(--lighter);
+            }
+        }
+        &.active a{
+            pointer-events: none;
+            background: var(--light);
+        }
+    }
+    .pageBtn{
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        margin: 0 0.5rem;
+        &.disabled a{
+            pointer-events: none;
+            color: var(--text-grey);
+        }
+    }
+    .dots{
+        pointer-events: none;
+        letter-spacing: 2px;
+        font-size: 2rem;
+    }
+}

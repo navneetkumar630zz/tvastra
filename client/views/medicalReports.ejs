@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Reports</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/medicalReports.css">
+</head>
+<body>
+
+    <% if(errorMsg.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Failure</h5>
+            <p><%= errorMsg %></p>
+        </div>
+    <% } %>
+
+    <% if(successMsg.length>0){ %>
+        <div class="toaster success">
+            <i class="fa fa-check-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Success</h5>
+            <p><%= successMsg %></p>
+        </div>
+    <% } %>
+
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <%- include("../templetes/asideProfileDashboard") %>
+    <section>
+        <div class="header">
+            <h1>Medical Records</h1>
+            <button type="button" class="btn-text" onclick="openModelBox()">Add Record</button>
+        </div>
+        <div id="records-container">
+            <% for(i=0;i<records.length;i++){ %>
+            <div class="records">
+                <div class="content">
+                    <div class="day" onclick="window.location.href='/showReport?id=<%= records[i]._id %>'"><%= records[i].date.toDateString().substring(4,10) %></div>
+                    <div class="info">
+                        <ul>
+                            <li class="record-title"><%= records[i].title %></li>
+                            <li><%= records[i].name %></li>
+                            <li><%= records[i].reportType %></li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="btn-text" onclick="window.location.href='/deleteRecord?id=<%= records[i]._id %>'">Delete</button>
+            </div>
+            <% } %>
+        </div>
+    </section>
+</div>
+</main>
+
+<div class="model-box-background">
+    <form class="model-box" action="/addRecord" method="POST" enctype="multipart/form-data">
+        <div class="photos">
+            <div class="selected-photos">
+            </div>
+            <div class="add-photo">
+                <input type="file" name="reportPic" id="reportPic" accept="image/*" multiple required />
+                <label for="reportPic"><i class="fa fa-plus"></i><span>Add Photo</span></label>
+            </div>
+        </div>
+        <div>
+            <input type="text" name="title" placeholder="Title" required />
+            <input type="text" name="name" value="<%= user.name %>" required />
+            <input type="date" name="date" max="<%= new Date().toISOString().split('T')[0] %>" required />
+        </div>
+        <div class="reportType">
+            <h6>Type of Report</h6>
+            <div>
+                <input type="radio" name="reportType" id="report" value="Report" checked />
+                <label for="report"><i class="far fa-file-alt"></i><span>Report</span></label>
+                <input type="radio" name="reportType" id="prescription" value="Prescription" />
+                <label for="prescription"><i class="far fa-file-alt"></i><span>Prescription</span></label>
+                <input type="radio" name="reportType" id="invoice" value="Invoice" />
+                <label for="invoice"><i class="far fa-file-alt"></i><span>Invoice</span></label>
+            </div>
+        </div>
+        <div class="button-group">
+            <button type="button" class="danger" onclick="closeModelBox()">Cancel</button>
+            <button type="submit" class="success">Done</button>
+        </div>
+    </form>
+</div>
+
+<%- include("../templetes/footer"); %>
+
+<script src="../templetes/js/header.js"></script>
+<script src="../templetes/js/modelBox.js"></script>
+<script>
+    (function(){
+        const reportPicInput = document.getElementById("reportPic");
+        var selectedPhotoContainer = document.querySelector(".selected-photos");
+
+        reportPicInput.addEventListener("change", e=>{
+            if(reportPicInput.files.length>5){
+                alert("Maximum 5 files are allowed");
+                reportPicInput.value=null;
+                selectedPhotoContainer.innerHTML='';
+            }else
+            if(reportPicInput.files.length){
+                selectedPhotoContainer.innerHTML='';
+                for(i=0;i<reportPicInput.files.length;i++){
+                    var imgElem = document.createElement("img");
+                    imgElem.src = URL.createObjectURL(reportPicInput.files[i]);
+                    selectedPhotoContainer.appendChild(imgElem);
+                    imgElem.onload = function(){
+                        URL.revokeObjectURL(this.src);
+                    }
+                }
+            }
+        })
+    })();
+</script>
+
+</body>
+</html>

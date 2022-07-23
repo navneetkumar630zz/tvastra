@@ -1,0 +1,71 @@
+@charset "utf-8";
+
+.toaster{
+    color: #555;
+    width: 18rem;
+    min-height: 4rem;
+    position: absolute;
+    top: 6rem;
+    right: 1rem;
+    padding: 0.5rem 0.5rem 0.5rem 3rem;
+    border-radius: 5px;
+    border-left: 0.4rem solid;
+    box-shadow: 2px 3px 5px -4px black;
+    z-index: 3;
+    animation: fadeOut 0.3s ease-in 3s forwards, slideIn 0.3s ease-out backwards;
+    @include media ($bp-tablet) {
+        width: 22rem;
+        min-height: 5rem;
+        right: 2rem;
+        padding: 1rem 1rem 0.6rem 3.5rem;
+    }
+    i{
+        position: absolute;
+        top: 0.8rem;
+        &:first-child{
+            left: 0.7rem;
+            font-size: 1.7rem;
+        }
+    }
+    .fa-times{
+        right: 1rem;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    h5{
+        margin-bottom: 0.5rem;
+    }
+    &.success{
+        background: honeydew;
+        border-left-color: var(--success);
+        i{
+            color: var(--success);
+        }
+    }
+    &.danger{
+        background: mistyrose;
+        border-left-color: var(--danger);
+        i{
+            color: var(--danger);
+        }
+    }
+}
+
+@keyframes slideIn{
+    from{ transform: translateX(30rem); }
+    to{ transform: translateX(0); }
+}
+@keyframes slideOut{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(30rem); }
+}
+@keyframes fadeOut{
+    from{
+        opacity: 1;
+        visibility: visible;
+    }
+    to{
+        opacity: 0;
+        visibility: hidden;
+    }
+}

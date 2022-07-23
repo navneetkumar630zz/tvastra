@@ -1,0 +1,28 @@
+<% if (pagesCount > 0) { %>
+    <ul id="pagination">
+        <% if (currentPage == 1) { %>
+            <li class="pageBtn disabled"><a>First</a></li>
+        <% } else { %>
+            <li class="pageBtn"><a onclick="pageno(event,'<%= 1 %>')" href="/<%= paginationTarget %>/1">First</a></li>
+        <% } %>
+        <% var i = (Number(currentPage) > 5 ? Number(currentPage) - 4 : 1) %>
+        <% if (i !== 1) { %>
+            <li class="dots"><a>...</a></li>
+        <% } %>
+        <% for (; i <= (Number(currentPage) + 4) && i <= pagesCount; i++) { %>
+            <% if (i == currentPage) { %>
+                <li class="pageNo active"><a><%= i %></a></li>
+            <% } else { %>
+                <li class="pageNo"><a onclick="pageno(event,'<%= i %>')" href="/<%= paginationTarget %>/<%= i %>"><%= i %></a></li>
+            <% } %>
+            <% if (i == Number(currentPage) + 4 && i < pagesCount) { %>
+                <li class="dots"><a>...</a></li>
+            <% } %>
+        <% } %>
+        <% if (currentPage == pagesCount) { %>
+            <li class="pageBtn disabled"><a>Last</a></li>
+        <% } else { %>
+            <li class="pageBtn"><a onclick="pageno(event,'<%= pagesCount %>')" href="/<%= paginationTarget %>/<%= pagesCount %>">Last</a></li>
+        <% } %>
+    </ul>
+<% } %>

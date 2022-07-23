@@ -1,0 +1,73 @@
+<header>
+    <div class="container">
+        <div class="logo">
+            <a href="/"><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Logo.jpg" alt="Company Logo"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/doctors">Doctors</a></li>
+                <li><a href="/hospitals">Hospitals</a></li>
+                <li><a href="/treatment">Treatment</a></li>
+                <li><a href="/aboutus">About</a></li>
+            </ul>
+        </nav>
+        <div id="headerButtons">
+            <a href="/tvastra-plus"><button class="btn-text">Tvastra Plus</button></a>
+            <a href="/submitquery"><button>Get a Quote</button></a>
+            <div class="profile">
+                <% if(user){ %>
+                <div class="profileBtn"><%= user.name.split(" ")[0] %></div>
+                <div class="profileMenu">
+                    <div class="profileContents">
+                        <div class="profileHeader" onclick="window.location.href='/profile'">
+                            <figure><img src="/uploads/<%= user.avtar?user.avtar:'default-user-image.png' %>" alt="User avtar"></figure>
+                            <div>
+                                <Big><%= user.name %></Big>
+                                <small><%= user.mobile %></small>
+                            </div>
+                        </div>
+                        <ul>
+                            <% if(user.role=="admin"){ %><li><a href="/adminDashboard">Dashboard</a></li><% } %>
+                            <li><a href="/myAppointments">My Appointments</a></li>
+                            <li><a>My Lab Tests</a></li>
+                            <li><a>My Medicine Orders</a></li>
+                            <li><a>My Payments</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <div id="mobile-header">
+        <div class="logo"><a href="/"><img src="https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Logo.jpg" alt="Company Logo"></a></div>
+        <div id="mobileHeaderBtns">
+            <div class="profile">
+                <% if(user){ %>
+                <div class="profileBtn"><img src="/uploads/<%= user.avtar?user.avtar:'default-user-image.png' %>" alt="avtar"></div>
+                <div class="profileMenu">
+                    <div class="profileContents">
+                        <div class="profileHeader" onclick="window.location.href='/profile'">
+                            <figure><img src="/uploads/<%= user.avtar?user.avtar:'default-user-image.png' %>" alt="User avtar"></figure>
+                            <div>
+                                <Big><%= user.name %></Big>
+                                <small><%= user.mobile %></small>
+                            </div>
+                        </div>
+                        <ul>
+                            <li><a href="/myAppointments">My Appointments</a></li>
+                            <li><a>My Lab Tests</a></li>
+                            <li><a>My Medicine Orders</a></li>
+                            <li><a>My Payments</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <button id="burger-icon"><i class="fas fa-bars"></i></button>
+            <button id="burger-close-icon"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+</header>

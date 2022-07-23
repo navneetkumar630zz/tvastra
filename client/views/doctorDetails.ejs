@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup page</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify@3.1.0/dist/tagify.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/doctorDetails.css">
+
+
+</head>
+<body>
+    
+    <% if(message.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Error</h5>
+            <p><%= message %></p>
+        </div>
+    <% } %>
+    
+<%- include("../templetes/header") %>
+
+<main>
+    <div class="form">
+        <h5 class="form-title">Welcome</h5>
+        <form action="/doctorDetails" enctype="multipart/form-data" method="POST">
+            <span>Complete your profile to proceed further</span>
+            <textarea name="bio" rows="5" placeholder="How do you describe yourself..." required></textarea>
+            <label>Upload your photo</label>
+            <input type="file" name="avtar" accept=".jpg,.jpeg,.png" required />
+            <input type="text" name="hospitals" placeholder="Your hospitals" data-tag-input="" required />
+            <input type="text" name="achievements" placeholder="Your achievements" data-tag-input="" />
+            <input type="number" name="experience" placeholder="Your experience (in years)" min="0" max="40" required />
+            <input type="text" name="qualifications" placeholder="Your qualifications" data-tag-input="" required />
+            <input type="text" name="awards" placeholder="Awards (if any)" data-tag-input="" />
+            <input type="text" name="specializations" placeholder="Your specializations" data-tag-input="" />
+            <input type="number" name="avgFees" placeholder="Your average fees (in rupees)" min="0" max="10000" />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    All rights reserved &copy; Tvastra 2020
+</footer>
+<script src="../templetes/js/header.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify@3.1.0/dist/tagify.min.js"></script>
+<script>
+    var tagInput = document.querySelectorAll("[data-tag-input]");
+    for(i=0; i<tagInput.length; i++){
+        new Tagify(tagInput[i], {
+            duplicates: false,
+            trim: true,
+            maxTags: 5
+        });
+    }
+</script>
+    
+</body>
+</html>

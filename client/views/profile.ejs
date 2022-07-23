@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify@3.1.0/dist/tagify.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/profile.css">
+</head>
+<body>
+    
+    <% if(message.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Failure</h5>
+            <p><%= message %></p>
+        </div>
+    <% } %>
+
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <%- include("../templetes/asideProfileDashboard") %>
+    <section>
+        <form action="/updateProfile" method="POST" enctype="multipart/form-data">
+            <div class="header">
+                <legend><h1>Accounts</h1></legend>
+                <button type="submit" class="btn-text">Save changes</button>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label>Profile Photo</label>
+                    <div id="profile-photo-group">
+                        <figure><img src="uploads/<%= user.avtar? user.avtar : 'default-user-image.png' %>" alt="avtar"></figure>
+                        <div>
+                            <span>Pick a photo form your system</span>
+                            <input type="file" name="avtar" id="avtar" accept="image/*">
+                            <label for="avtar">Select photo</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" name="name" value="<%= user.name %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group pos-rel">
+                    <label>Phone Number</label><span class="fa fa-pen" onclick="openModelBox()"></span>
+                    <input type="text" name="mobile" value="<%= user.mobile %>" readonly />
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="text" name="email" value="<%= user.email %>" />
+                </div>
+                <div class="input-group">
+                    <label>Gender</label>
+                    <select name="gender">
+                        <option value="Male" <%= user.gender=="Male"? "selected":''%>>Male</option>
+                        <option value="Female" <%= user.gender=="Female"? "selected":''%>>Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Date of birth</label>
+                    <input type="date" name="dob" value="<%= new Date(user.dob).toISOString().split('T')[0] %>" />
+                </div>
+                <div class="input-group">
+                    <label>Timezone</label>
+                    <input type="text" name="timezone" value="<%= user.timezone %>" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label>House no./Street name/ Area</label>
+                    <input type="text" name="houseNo" value="<%= user.houseNo %>" />
+                </div>
+                <div class="input-group">
+                    <label>Colony/Street/Locality</label>
+                    <input type="text" name="colony" value="<%= user.colony %>" />
+                </div>
+                <div class="input-group">
+                    <label>City</label>
+                    <input type="text" name="city" value="<%= user.city %>" />
+                </div>
+                <div class="input-group">
+                    <label>State</label>
+                    <input type="text" name="state" value="<%= user.state %>" />
+                </div>
+                <div class="input-group">
+                    <label>Country</label>
+                    <input name="country" list="country" value="<%= user.country %>" />
+                    <datalist id="country">
+                        <option value="India"></option>
+                        <option value="Srilaka"></option>
+                        <option value="Pakistan"></option>
+                        <option value="America"></option>
+                        <option value="China"></option>
+                        <option value="Nepal"></option>
+                    </datalist>
+                </div>
+            </div>
+            <% if(user.role=="doctor"){ %>
+            <div class="form-group">
+                <div class="input-group">
+                    <label>Hospitals</label>
+                    <input type="text" name="hospitals" value="<%= user.hospitals %>" class="tags-input" />
+                </div>
+                <div class="input-group">
+                    <label>Qualifications</label>
+                    <input type="text" name="qualifications" value="<%= user.qualifications %>" class="tags-input" />
+                </div>
+                <div class="input-group">
+                    <label>Achievements</label>
+                    <input type="text" name="achievements" value="<%= user.achievements %>" class="tags-input" />
+                </div>
+                <div class="input-group">
+                    <label>Experience (in years)</label>
+                    <input type="number" name="experience" value="<%= user.experience %>" max="40" />
+                </div>
+                <div class="input-group">
+                    <label>Specializations</label>
+                    <input type="text" name="specializations" value="<%= user.specializations %>" class="tags-input" />
+                </div>
+                <div class="input-group">
+                    <label>Awards</label>
+                    <input type="text" name="awards" value="<%= user.awards %>" class="tags-input" />
+                </div>
+                <div class="input-group">
+                    <label>Average fees (in rupees)</label>
+                    <input type="number" name="avgFees" value="<%= user.avgFees %>" max="10000" />
+                </div>
+                <div class="input-group full-width">
+                    <label>Your description</label>
+                    <textarea name="bio" rows="5"><%= user.bio %></textarea>
+                </div>
+            </div>
+            <% } %>
+            <% if(isAdmin){ %><input type="hidden" name="id" value="<%= user._id %>"><% } %>
+        </form>
+    </section>
+</div>
+</main>
+
+<div class="model-box-background">
+    <form class="model-box" action="/changePhoneNo" oninput="oldNumber.value==newNumber.value? document.getElementById('changePhoneSubBtn').disabled=true: document.getElementById('changePhoneSubBtn').disabled=false" method="POST">
+        <div class="heading">
+            <h2>Change Phone number</h2>
+        </div>
+        <div>
+            <label>Current phone number</label>
+            <input type="tel" name="oldNumber" value="<%= user.mobile %>" readonly />
+            <label>Enter new phone number</label>
+            <input type="tel" name="newNumber" pattern="[0-9]{10}" autocomplete="off" required />
+        </div>
+        <div class="button-group">
+            <button type="button" class="danger" onclick="closeModelBox()">Cancel</button>
+            <button id="changePhoneSubBtn" class="success" type="submit">Send OTP</button>
+        </div>
+    </form>
+</div>
+
+<% if(requestId){ %>
+<div class="model-box-background otpBox" style="display: flex;">
+    <form class="model-box" action="/verifyAndChangePhoneNo" method="POST">
+        <div class="heading">
+            <h2>Enter OTP</h2>
+        </div>
+        <p>We have sent One Time Password (OTP) to your new Phone Number.</p>
+        <div id="inputs">
+            <input type="hidden" name="requestId" value="<%= requestId %>">
+            <input type="tel" name="otp" maxlength="4" minlength="4" autofocus autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length===4) this.blur()" required/>
+            <div>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<% } %>
+
+
+<%- include("../templetes/footer"); %>
+
+<script src="../templetes/js/header.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify@3.1.0/dist/tagify.min.js"></script>
+<script src="../templetes/js/modelBox.js"></script>
+<script src="../assets/script/profile.js"></script>
+
+</body>
+</html>

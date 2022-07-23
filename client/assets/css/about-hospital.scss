@@ -1,0 +1,62 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/heroSection";
+@import "../../templetes/css/needHelp";
+@import "../../templetes/css/footer";
+@import "../../templetes/css/accordian";
+
+#hero{
+    background-image: url(https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/contactUs.png);
+}
+main section{ padding: 0; }
+main{
+    padding: 1rem;
+    @include media($bp-desktop){
+        padding: 3.5rem 2rem;
+    }
+    .container{
+        padding: 0.6rem;
+        border: 1px solid var(--grey);
+        @include media(577px){
+            display: flex;
+            padding: 2rem;
+            #photo{
+                flex-basis: 140rem;
+                order: 1;
+                margin-left: 1.5rem;
+            }
+        }
+        p{
+            line-height: 1.5;
+        }
+        button{
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+    }
+}
+#accordian{
+    .key-details{
+        margin: 1rem 0;
+        @include media($bp-tablet){
+            display: flex;
+            justify-content: space-between;
+        }
+        &>div{
+            min-width: 35%;
+            margin: .5rem 0;
+            margin-right: 1rem;
+            display: flex;
+        }
+        i{
+            color: var(--text);
+            width: 2.3rem;
+        }
+        span{
+            font-size: .85rem;
+            color: var(--text-grey);
+            line-height: 1.4;
+        }
+    }
+}

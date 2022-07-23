@@ -1,0 +1,85 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/footer";
+@import "../../templetes/css/formPage";
+
+body{
+    background: var(--light-grey);
+}
+section{
+    padding: 1rem;
+}
+footer{
+    font-size: initial;
+    font-weight: normal;
+    letter-spacing: 0.2px;
+    @include media($bp-tablet){
+        background: var(--white);
+    }
+}
+label{
+    color: var(--text);
+    font-weight: bold;
+}
+h1{
+    color: var(--text);
+    text-align: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--dark-grey);
+    margin-top: 1.2rem;
+}
+main{
+    .container{
+        @include media($bp-tablet){
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    section:first-child{
+        display: grid;
+        align-items: center;
+        @include media($bp-desktop){
+            margin-right: 2rem;
+        }
+    }
+    figure{
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
+        div{
+            width: 7rem;
+            height: 7rem;
+            margin-right: 1rem;
+        }
+        img{
+            height: 100%;
+        }
+    }
+}
+#doctor-box{
+    background: var(--white);
+    padding: 1rem;
+    @include media($bp-tablet){
+        &>ul{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    li{
+        margin: 0.6rem 0;
+        i{
+            width: 1.7rem;
+            color: var(--text);
+        }
+        a{
+            font-weight: bold;
+        }
+    }
+}
+.form{
+    width: auto;
+    h5{
+        margin: 0.6rem 0;
+    }
+}

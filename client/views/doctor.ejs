@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctors</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/doctor.css">
+</head>
+<body>
+
+    <% if(message.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Failure</h5>
+            <p><%= message %></p>
+        </div>
+    <% } %>
+
+<%- include("../templetes/header") %>
+
+<section id="hero">
+    <div class="container">
+        <h1>Cardiac Surgeon in <u>Delhi</u></h1>
+    </div>
+</section>
+
+<div id="topbar">
+    <div class="container">
+        <div id="breadcrumb"><a href="/">Home</a> / Doctor List</div>
+        <div id="resultsCount">Total result: <%= totalResultCount %></div>
+        <div id="sortby">
+            <button onclick="sortbyButton()">Sort By &nbsp; <i class="fa fa-chevron-down"></i></button>
+            <ul>
+                <li onclick="sortBy('name')">Name (A-Z)</li>
+                <li onclick="sortBy('-name')">Name (Z-A)</li>
+                <li onclick="sortBy('experience')">Experience (low-high)</li>
+                <li onclick="sortBy('-experience')">Experience (high-low)</li>
+                <li onclick="sortBy('avgFees')">Avg fees (low-high)</li>
+                <li onclick="sortBy('-avgFees')">Avg fees(high-low)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<main>
+<div class="container">
+    
+<aside>
+    <h6>Filter By</h6>
+    <ul id="selected-filters"></ul>
+    <% if(allDoctors){ %>
+    <form id="filterForm">
+    <input type="hidden" name="sort" id="sortInput" value="name">
+    <div class="filter-group">
+        <div class="filter-name">
+            <h6>Location</h6>
+            <div class="icons">
+                <i class="fa fa-search" onclick="filter_search_open(0)"></i>
+                <i class="fa fa-minus"></i>
+            </div>
+        </div>
+        <input type="search" onblur="filter_search_close(this)" placeholder="search location"/>
+        <div class="filter-list">
+            <ul>
+                <% var cities = [...new Set(allDoctors.map(e=> e.city))]; for(i=0;i<cities.length;i++){ %>
+                    <li><input type="checkbox" id="fl-location-<%=i%>" name="city" value="<%= cities[i] %>" onchange="this.form.submit()" <% if(filters.city){ %><%= filters.city.includes(cities[i])?'checked':''%><%}%> /><label for="fl-location-<%=i%>"><%= cities[i] %></label></li>
+                <% } %>
+            </ul>
+            <% if(cities.length>6){ %>
+                <span class="fltr-showMore" onclick="fltr_showMore(0)"><big>+</big> Show more</span>
+                <span class="fltr-showLess hide" onclick="fltr_showLess(0)"><big>-</big> Show Less</span>
+            <% } %>
+        </div>
+    </div>
+    <div class="filter-group">
+        <div class="filter-name">
+            <h6>Specialization</h6>
+            <div class="icons">
+                <i class="fa fa-search" onclick="filter_search_open(1)"></i>
+                <i class="fa fa-minus"></i>
+            </div>
+        </div>
+        <input type="search" onblur="filter_search_close(this)" placeholder="search treatment"/>
+        <div class="filter-list">
+            <ul>
+                <% var allSpecializations = [...new Set(allDoctors.map(e=> e.specializations.join(",")).join(",").split(","))]; for(i=0;i<allSpecializations.length;i++){ %>
+                    <li><input type="checkbox" id="fl-specializations-<%=i%>" name="specializations" value="<%= allSpecializations[i] %>" onchange="this.form.submit()"<% if(filters.specializations){ %><%= filters.specializations.includes(allSpecializations[i])?'checked':''%><%}%> /><label for="fl-specializations-<%=i%>"><%= allSpecializations[i] %></label></li>
+                <% } %>
+            </ul>
+            <% if(allSpecializations.length>6){ %>
+                <span class="fltr-showMore" onclick="fltr_showMore(1)"><big>+</big> Show more</span>
+                <span class="fltr-showLess hide" onclick="fltr_showLess(1)"><big>-</big> Show Less</span>
+            <% } %>
+        </div>
+    </div>
+    <div class="filter-group">
+        <div class="filter-name">
+            <h6>Hospitals</h6>
+            <div class="icons">
+                <i class="fa fa-search" onclick="filter_search_open(2)"></i>
+                <i class="fa fa-minus"></i>
+            </div>
+        </div>
+        <input type="search" onblur="filter_search_close(this)" placeholder="search hospital"/>
+        <div class="filter-list">
+            <ul>
+                <% var allHospitals = [...new Set(allDoctors.map(e=> e.hospitals.join(",")).join(",").split(","))]; for(i=0;i<allHospitals.length;i++){ %>
+                    <li><input type="checkbox" id="fl-hospitals-<%=i%>" name="hospitals" value="<%= allHospitals[i] %>" onchange="this.form.submit()"<% if(filters.hospitals){ %><%= filters.hospitals.includes(allHospitals[i])?'checked':''%><%}%> /><label for="fl-hospitals-<%=i%>"><%= allHospitals[i] %></label></li>
+                <% } %>
+            </ul>
+            <% if(allHospitals.length>6){ %>
+                <span class="fltr-showMore" onclick="fltr_showMore(2)"><big>+</big> Show more</span>
+                <span class="fltr-showLess hide" onclick="fltr_showLess(2)"><big>-</big> Show Less</span>
+            <% } %>
+        </div>
+    </div>
+    <div class="filter-group">
+        <div class="filter-name">
+            <h6>Years of Experience</h6>
+            <div class="icons">
+                <i class="fa fa-search" onclick="filter_search_open(3)"></i>
+                <i class="fa fa-minus"></i>
+            </div>
+        </div>
+        <input type="search" onblur="filter_search_close(this)" placeholder="search experience"/>
+        <div class="filter-list">
+            <ul>
+                <li><input type="checkbox" id="fl-experience-1" name="experience" value="30" onchange="this.form.submit()"<% if(filters.experience){ %><%= filters.experience.includes(30)?'checked':''%><%}%> /><label for="fl-experience-1">30+</label></li>
+                <li><input type="checkbox" id="fl-experience-2" name="experience" value="25" onchange="this.form.submit()"<% if(filters.experience){ %><%= filters.experience.includes(25)?'checked':''%><%}%> /><label for="fl-experience-2">25+</label></li>
+                <li><input type="checkbox" id="fl-experience-3" name="experience" value="20" onchange="this.form.submit()"<% if(filters.experience){ %><%= filters.experience.includes(20)?'checked':''%><%}%> /><label for="fl-experience-3">20+</label></li>
+                <li><input type="checkbox" id="fl-experience-4" name="experience" value="15" onchange="this.form.submit()"<% if(filters.experience){ %><%= filters.experience.includes(15)?'checked':''%><%}%> /><label for="fl-experience-4">15+</label></li>
+                <li><input type="checkbox" id="fl-experience-5" name="experience" value="10" onchange="this.form.submit()"<% if(filters.experience){ %><%= filters.experience.includes(10)?'checked':''%><%}%> /><label for="fl-experience-5">10+</label></li>
+                <li><input type="checkbox" id="fl-experience-6" name="experience" value="5" onchange="this.form.submit()"<% if(filters.experience){ %><%= filters.experience.includes(5)?'checked':''%><%}%> /><label for="fl-experience-6">5+</label></li>
+            </ul>
+        </div>
+    </div>
+    </form>
+    <% } %>
+</aside>
+
+<section id="doctors">
+    <% if(doctor){ %>
+    <% for(i=0; i<doctor.length;i++){ %>
+        <div class="doctor-card">
+        <div class="details">
+            <a href="/doctorsProfile?doctorId=<%= doctor[i]._id %>"><h4><%= doctor[i].name %></h4></a>
+            <ul>
+                <li><i class="fa fa-star"></i><span><%= doctor[i].specializations %></span></li>
+                <li><i class="fa fa-hospital"></i><span><%= doctor[i].hospitals.join(", ") %></span></li>
+                <li><i class="fa fa-award"></i><span><%= doctor[i].qualifications.join(", ") %></span></li>
+                <li><i class="fa fa-clock"></i><span><%= doctor[i].experience %> Years of Experience</span></li>
+                <li><i class="fa fa-map-marker-alt"></i><span><%= doctor[i].state %>, <%= doctor[i].country %></span></li>
+                <li><i class="fa fa-money-bill"></i><span><%= doctor[i].avgFees %></span></li>
+            </ul>
+            <button class="center toggleBooking">Book an Appointment</button>
+        </div>
+        <figure>
+            <img src="../uploads/<%= doctor[i].avtar %>" alt="doctor">
+        </figure>
+        <div class="booking" id="booking<%=i%>">
+            <% var docSchedule = schedule.filter(e=> e.createdBy == doctor[i]._id.toString() && e.enable==true) %>
+            <% if(docSchedule.length>0){ %>
+
+            <div class="booking-dates-group">
+
+                <div class="carousal-btn-left mobile">&lt;</div>
+                <div class="carousal-btn-right mobile">&gt;</div>
+                <div class="carousal-btn-left tablet">&lt;</div>
+                <div class="carousal-btn-right tablet">&gt;</div>
+
+                <% var today = new Date(); %>
+                <% var nIteration = 6 %>
+                <% for(c=0;c<nIteration;c++){ %>
+                <% if(today.getDay()==0){ today.setDate(today.getDate()+1); nIteration++; continue; } %>
+                    <div class="booking-date">
+                        <span><%= today.toDateString() %></span>
+                        <% var nSlots = 0 %>
+                        <% for(a=0;a<docSchedule.length;a++){ %>
+                            <% if(docSchedule[a].date.getDate()==today.getDate()){ nSlots += docSchedule[a].slots.filter(e=> e.enable==true && e.booked==false).length; } %>
+                        <% } %>
+                        <small><%= nSlots %> Slots Available</small>
+                    </div>
+                <% today.setDate(today.getDate()+1); %>
+                <% } %>
+            </div>
+
+            <% var date = new Date(); var nIteration = 6 %>
+            <% for(c=0;c<nIteration;c++){ %>
+            <% if(date.getDay()==0){ date.setDate(date.getDate()+1); nIteration++; continue; } %>
+            <div class="booking-times-group">
+                <% for(a=0;a<docSchedule.length;a++){ %>
+                <% if(docSchedule[a].date.getDate()==date.getDate()){ %>
+                    <div class="booking-time">
+                        <div class="daytime">Morning</div>
+                        <ul>
+                            <% for(j=0; j<docSchedule[a].slots.length;j++){ %>
+                            <% if(docSchedule[a].slots[j].enable && docSchedule[a].slots[j].booked==false){ %>
+                            <% if(moment(docSchedule[a].slots[j].startTime,"hh:mm A").isBefore(moment("12:00 PM","hh:mm A"))){ %>
+                                <li onclick="window.location.href='/bookAppointment/?scheduleId=<%= docSchedule[a]._id %>&slotId=<%= docSchedule[a].slots[j]._id %>&date=<%= docSchedule[a].date %>'"><%= docSchedule[a].slots[j].startTime %></li>
+                            <% } %>
+                            <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="booking-time">
+                        <div class="daytime">Afternoon</div>
+                        <ul>
+                            <% for(j=0; j<docSchedule[a].slots.length;j++){ %>
+                            <% if(docSchedule[a].slots[j].enable && docSchedule[a].slots[j].booked==false){ %>
+                            <% if(moment(docSchedule[a].slots[j].startTime,"hh:mm A").isBefore(moment("04:00 PM","hh:mm A")) && moment(docSchedule[a].slots[j].startTime,"hh:mm A").isAfter(moment("11:59 AM","hh:mm A"))){ %>
+                                <li onclick="window.location.href='/bookAppointment/?scheduleId=<%= docSchedule[a]._id %>&slotId=<%= docSchedule[a].slots[j]._id %>&date=<%= docSchedule[a].date %>'"><%= docSchedule[a].slots[j].startTime %></li>
+                            <% } %>
+                            <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="booking-time">
+                        <div class="daytime">Evening</div>
+                        <ul>
+                            <% for(j=0; j<docSchedule[a].slots.length;j++){ %>
+                            <% if(docSchedule[a].slots[j].enable && docSchedule[a].slots[j].booked==false){ %>
+                            <% if(moment(docSchedule[a].slots[j].startTime,"hh:mm A").isAfter(moment("03:59 PM","hh:mm A"))){ %>
+                                <li onclick="window.location.href='/bookAppointment/?scheduleId=<%= docSchedule[a]._id %>&slotId=<%= docSchedule[a].slots[j]._id %>&date=<%= docSchedule[a].date %>'"><%= docSchedule[a].slots[j].startTime %></li>
+                            <% } %>
+                            <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="booking-hospital-name"><%= docSchedule[a].hospital %></div>
+                <% }} %>
+            </div>
+            <% date.setDate(date.getDate()+1); %>
+            <% } %>
+            <% }else{ %>
+            <div class="no-schedule">No Schedule</div>
+            <% } %>
+        </div>
+    </div>
+    <% } %>
+    <% } %>
+</section>
+
+
+
+</div>
+</main>
+
+<%- include("../templetes/pagination", {paginationTarget: "doctors"}); %>
+
+<%- include("../templetes/needHelp"); %>
+
+<%- include("../templetes/footer"); %>
+
+<script src="../templetes/js/header.js"></script>
+<script src="../templetes/js/asideFilter.js"></script>
+<script src="../assets/script/doctors.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<aside>
+    <h2>Dashboard</h2>
+    <ul>
+        <li><a href="/profile"><i class="fa fa-user-edit"></i><span>Profile</span></li></a>
+        <li><a href="/myAppointments"><i class="fa fa-th-list"></i><span>Appointments</span></li></a>
+        <% if(user.role=="doctor"){ %>
+        <li><a href="/schedules"><i class="far fa-calendar-check"></i><span>Schedules</span></li></a>
+        <% } %>
+        <li><a href="medicalReports"><i class="fa fa-file-alt"></i><span>Medical Reports</span></li></a>
+        <li><a href="/settings"><i class="fa fa-user-cog"></i><span>Settings</span></li></a>
+    </ul>
+</aside>

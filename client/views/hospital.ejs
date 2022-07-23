@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitals</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/hospital.css">
+</head>
+<body>
+    
+<%- include("../templetes/header") %>
+    
+<section id="hero">
+    <div class="container">
+        <h1>Hospitals in <u>Delhi</u></h1>
+    </div>
+</section>
+
+<div id="topbar">
+    <div class="container">
+        <div id="breadcrumb"><a href="/">Home</a> / Hospital List</div>
+        <div id="sortby">
+            <button onclick="sortbyButton()">Sort By &nbsp; <i class="fa fa-chevron-down"></i></button>
+            <ul>
+                <li>Name</li>
+                <li>Beds</li>
+                <li>Nearest location</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<main>
+<div class="container">
+    
+<aside>
+    <h6>Filter By</h6>
+    <ul id="selected-filters"></ul>
+    <div class="filter-group">
+        <div class="filter-name">
+            <h6>Location</h6>
+            <div class="icons">
+                <i class="fa fa-search" onclick="filter_search_open(0)"></i>
+                <i class="fa fa-minus"></i>
+            </div>
+        </div>
+        <input type="search" onblur="filter_search_close(this)" placeholder="search location"/>
+        <div class="filter-list">
+            <ul>
+                <li><input type="checkbox" id="fl-location-1"><label for="fl-location-1">DLF Cyber City</label></li>
+                <li><input type="checkbox" id="fl-location-2"><label for="fl-location-2">Dwarika</label></li>
+                <li><input type="checkbox" id="fl-location-3"><label for="fl-location-3">Lajpat Nagar</label></li>
+                <li><input type="checkbox" id="fl-location-4"><label for="fl-location-4">Palam Vihar</label></li>
+                <li><input type="checkbox" id="fl-location-5"><label for="fl-location-5">Punjabi Baag</label></li>
+                <li><input type="checkbox" id="fl-location-6"><label for="fl-location-6">Pusa Road</label></li>
+                <li class="hide"><input type="checkbox" id="fl-location-7"><label for="fl-location-7">Mehrauli</label></li>
+                <li class="hide"><input type="checkbox" id="fl-location-8"><label for="fl-location-8">Gaziabad</label></li>
+                <li class="hide"><input type="checkbox" id="fl-location-9"><label for="fl-location-9">Gurugram</label></li>
+                <li class="hide"><input type="checkbox" id="fl-location-10"><label for="fl-location-10">Karawal Nagar</label></li>
+                <li class="hide"><input type="checkbox" id="fl-location-11"><label for="fl-location-11">Faridabad</label></li>
+            </ul>
+            <span class="fltr-showMore" onclick="fltr_showMore(0)"><big>+</big> Show more</span>
+            <span class="fltr-showLess hide" onclick="fltr_showLess(0)"><big>-</big> Show Less</span>
+        </div>
+    </div>
+    <div class="filter-group">
+        <div class="filter-name">
+            <h6>Department</h6>
+            <div class="icons">
+                <i class="fa fa-search" onclick="filter_search_open(1)"></i>
+                <i class="fa fa-minus"></i>
+            </div>
+        </div>
+        <input type="search" onblur="filter_search_close(this)" placeholder="search department"/>
+        <div class="filter-list">
+            <ul>
+                <li><input type="checkbox" id="fl-department-1"><label for="fl-department-1">Department 1</label></li>
+                <li><input type="checkbox" id="fl-department-2"><label for="fl-department-2">Department 2</label></li>
+                <li><input type="checkbox" id="fl-department-3"><label for="fl-department-3">Department 3</label></li>
+                <li><input type="checkbox" id="fl-department-4"><label for="fl-department-4">Department 4</label></li>
+                <li><input type="checkbox" id="fl-department-5"><label for="fl-department-5">Department 5</label></li>
+                <li><input type="checkbox" id="fl-department-6"><label for="fl-department-6">Department 6</label></li>
+                <li class="hide"><input type="checkbox" id="fl-department-7"><label for="fl-department-7">Department 7</label></li>
+                <li class="hide"><input type="checkbox" id="fl-department-8"><label for="fl-department-8">Department 8</label></li>
+                <li class="hide"><input type="checkbox" id="fl-department-9"><label for="fl-department-9">Department 9</label></li>
+                <li class="hide"><input type="checkbox" id="fl-department-10"><label for="fl-department-10">Department 10</label></li>
+                <li class="hide"><input type="checkbox" id="fl-department-11"><label for="fl-department-11">Department 11</label></li>
+            </ul>
+            <span class="fltr-showMore" onclick="fltr_showMore(1)"><big>+</big> Show more</span>
+            <span class="fltr-showLess hide" onclick="fltr_showLess(1)"><big>-</big> Show Less</span>
+        </div>
+    </div>
+    <div class="filter-group">
+        <div class="filter-name">
+            <h6>Treatment</h6>
+            <div class="icons">
+                <i class="fa fa-search" onclick="filter_search_open(2)"></i>
+                <i class="fa fa-minus"></i>
+            </div>
+        </div>
+        <input type="search" onblur="filter_search_close(this)" placeholder="search treatment"/>
+        <div class="filter-list">
+            <ul>
+                <li><input type="checkbox" id="fl-treatment-1"><label for="fl-treatment-1">Multi Organ Transplant</label></li>
+                <li><input type="checkbox" id="fl-treatment-2"><label for="fl-treatment-2">Orthopedics Surgery</label></li>
+                <li><input type="checkbox" id="fl-treatment-3"><label for="fl-treatment-3">Infertility Treatment</label></li>
+                <li><input type="checkbox" id="fl-treatment-4"><label for="fl-treatment-4">Dentistry</label></li>
+                <li><input type="checkbox" id="fl-treatment-5"><label for="fl-treatment-5">Cardiology</label></li>
+                <li><input type="checkbox" id="fl-treatment-6"><label for="fl-treatment-6">Cancer</label></li>
+                <li class="hide"><input type="checkbox" id="fl-treatment-7"><label for="fl-treatment-7">Plastic Surgery</label></li>
+                <li class="hide"><input type="checkbox" id="fl-treatment-8"><label for="fl-treatment-8">Neuro Surgery</label></li>
+            </ul>
+            <span class="fltr-showMore" onclick="fltr_showMore(2)"><big>+</big> Show more</span>
+            <span class="fltr-showLess hide" onclick="fltr_showLess(2)"><big>-</big> Show Less</span>
+        </div>
+    </div>
+</aside>
+
+<section id="hospitals">
+    <% for(i=0;i<hospitals.length;i++){ %>
+    <div class="hospital-card">
+        <div class="details">
+            <h5><%= hospitals[i].name %></h5>
+            <ul>
+                <li><i class="fa fa-map-marker-alt"></i><span><%= hospitals[i].address? hospitals[i].address: 'N/A' %></span></li>
+                <li><i class="fa fa-bed"></i><span><%= hospitals[i].nBeds? hospitals[i].nBeds+' Beds': 'N/A' %></span></li>
+                <li><i class="fa fa-stethoscope"></i><span>Famous Treatments</span></li>
+            </ul>
+            <ul class="famous-treatments">
+                <% for(j=0;j<hospitals[i].treatments.length;j++){ %>
+                <% if(j<7){ %>
+                    <li><%= hospitals[i].treatments[j] %></li>
+                <% }else{ %>
+                    <li class="hide"><%= hospitals[i].treatments[j] %></li>
+                <% }} %>
+            </ul>
+            <a href="tel:<%= hospitals[i].phone %>" class="center"><button class="btn btn-dark">Call Now</button></a>
+        </div>
+        <figure>
+            <img src="../uploads/<%= hospitals[i].picture? hospitals[i].picture: 'default-hospital.png' %>" alt="hospital">
+        </figure>
+    </div>
+    <% } %>
+</section>
+
+
+
+</div>
+</main>
+
+<%- include("../templetes/pagination", {paginationTarget: "hospitals"}); %>
+
+<%- include("../templetes/needHelp"); %>
+
+<%- include("../templetes/footer"); %>
+
+<script src="../templetes/js/header.js"></script>
+<script src="../templetes/js/asideFilter.js"></script>
+<script src="../assets/script/hospital.js"></script>
+</body>
+</html>

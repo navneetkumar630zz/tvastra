@@ -1,0 +1,206 @@
+@charset "UTF-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/needHelp";
+@import "../../templetes/css/footer";
+
+h1{
+    color: #000;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+main{
+    background: var(--light-grey);
+    section{
+        background: var(--white);
+        @include media ($bp-tablet){
+          padding-left: 3rem;
+        }
+    }
+    h2{
+        color: var(--text);
+        position: relative;
+        margin-left: 2rem;
+        @include media ($bp-tablet){
+          margin-left: 0;
+        }
+        &::before{
+            content: "";
+            width: 2.5rem;
+            height: 2px;
+            position: absolute;
+            top: 0.75rem;
+            left: -3rem;
+            background: var(--text);
+            @include media ($bp-desktop){
+                top: 0.9rem;
+            }
+        }
+    }
+    ul.appointment-details{
+        line-height: 2;
+        @include media ($bp-tablet){
+            display: grid;
+            grid-template-columns: repeat(2, minmax(10rem, 25rem));
+        }
+        i{
+            width: 2rem;
+            color: var(--text);
+        }
+    }
+    button.center{
+        margin-top: 1rem;
+        @include media ($bp-tablet){
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}
+
+/* -----------------------  B O O K I N G  ------------------------ */
+.booking{
+  position: relative;
+  max-height: 0;
+  max-width: 55rem;
+  margin: auto;
+  overflow: hidden;
+  transition: 0.3s;
+  @include media($bp-tablet){
+    grid-column: 1 / -1;
+  }
+}
+.no-schedule{
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--text);
+  font-weight: bold;
+  padding: 0.5rem 0;
+  background: var(--light-grey);
+}
+.booking-dates-group{
+  height: 10rem;
+  overflow: hidden;
+
+  @include media ($bp-tablet){
+    display: flex;
+    height: auto;
+    max-width: 100%;
+    margin: 0 3rem;
+  }
+  
+  [class ^= "carousal-btn"]{
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    color: var(--text);
+    font-weight: bold;
+    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+    background: var(--grey);
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    z-index: 3;
+    user-select: none;
+
+    &.tablet{
+      display: none;
+    }
+
+    @include media ($bp-tablet){
+      top: 0.5rem;
+      
+      &.mobile{
+        display: none;
+      }
+      &.tablet{
+        display: block;
+      }
+    }
+  }
+  .carousal-btn-right{
+    left: auto;
+    right: 0;
+  }
+}
+.booking-date{
+  text-align: center;
+  height: 3rem;
+  width: 65%;
+  min-width: 50%;
+  margin: auto;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #0000;
+  will-change: transform;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover{
+    border-bottom-color: var(--text);
+  }
+
+  &.active{
+    border-bottom: 3px solid var(--text);
+  }
+
+  @include media($bp-desktop){
+    min-width: 33.33333%;
+  }
+  span{
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  small{
+    color: var(--text);
+    font-weight: bold;
+  }
+}
+.booking-times-group{
+  display: none;
+  &.active{
+    display: block;
+  }
+}
+.booking-time{
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--grey);
+  @include media($bp-tablet){
+    display: grid;
+    align-items: center;
+    grid-template-columns: 10rem auto;
+  }
+  ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    @include media ($bp-tablet){
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 1rem;
+    }
+    @include media ($bp-desktop){
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  li {
+    padding: 0.6rem;
+    border: 1px solid var(--success);
+    color: var(--success);
+    margin-top: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+  .daytime {
+    text-align: center;
+}
+.booking-hospital-name{
+  padding: 0.5rem;
+  text-align: center;
+  color: var(--success);
+  font-weight: bold;
+}

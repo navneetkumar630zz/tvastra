@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedules</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/schedules.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/clocklet@0.2.6/css/clocklet.min.css">
+</head>
+<body>
+
+    <% if(errorMsg.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Failure</h5>
+            <p><%= errorMsg %></p>
+        </div>
+    <% } %>
+
+    <% if(successMsg.length>0){ %>
+        <div class="toaster success">
+            <i class="fa fa-check-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Success</h5>
+            <p><%= successMsg %></p>
+        </div>
+    <% } %>
+
+<%- include("../templetes/header") %>
+
+<div class="model-box-background">
+    <form class="model-box" action="/createSchedule" method="POST">
+        <div class="heading">
+            <h2>Create Schedule</h2>
+        </div>
+        <div>
+            <label>Select available days</label>
+            <select name="day" multiple required>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednessday">Wednessday</option>
+                <option value="Thrusday">Thrusday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+            </select>
+            <label>Select the hospital</label>
+            <select name="hospital">
+                <% for(i=0;i<user.hospitals.length;i++){ %>
+                <option value="<%= user.hospitals[i] %>"><%= user.hospitals[i] %></option>
+                <% } %>
+            </select>
+            <div class="half-inputs">
+                <div>
+                    <label>From (time)</label>
+                    <input type="text" name="startTime" placeholder="Starting time" data-clocklet="placement: top; z-index: 15; format: hh:mm A;" autocomplete="off" required />
+                </div>
+                <div>
+                    <label>To (time)</label>
+                    <input type="text" name="endTime" placeholder="Ending time" data-clocklet="placement: top; z-index: 15; alignment: right; format: hh:mm A;" autocomplete="off" required />
+                </div>
+            </div>
+            <label>Intervals</label>
+            <input type="number" name="interval" placeholder="Enter intervals in minutes" min="15" max="60" step="15" required />
+        </div>
+        <div class="button-group">
+            <button type="button" class="danger" onclick="closeModelBox()">Cancel</button>
+            <button id="createScheduleSubmitBtn" class="success" type="submit">Create Schedule</button>
+        </div>
+    </form>
+</div>
+
+<main>
+<div class="container">
+    <%- include("../templetes/asideProfileDashboard") %>
+    <section>
+        <div class="header">
+            <h1>All Schedules</h1>
+            <button type="button" class="btn-text" onclick="openModelBox()">Create Schedule</button>
+        </div>
+        <div id="schedule-container">
+            <% if(schedules){ %>
+            <% for(i=0; i<schedules.length;i++){ %>
+            <div class="schedule <% if(!schedules[i].enable){ %>disabled<% } %>">
+                <div class="schedule-head">
+                    <div class="day"><%= schedules[i].day %></div>
+                    <div class="venue">
+                        <div class="hospital-name"><%= schedules[i].hospital %></div>
+                        <time><%= schedules[i].startTime %> - <%= schedules[i].endTime %></time>
+                    </div>
+                    <div class="buttons">
+                        <button onclick="return (confirm('Do you want to delete schedule?')? window.location.href='/deleteSchedule?id=<%= schedules[i]._id %>' : '')">Remove Schedule</button>
+                        <button class="view-slots" onclick="viewSlots('<%= i %>')">View Slots</button>
+                        <input type="checkbox" onchange="window.location.href='/disableSchedule?id=<%= schedules[i]._id %>'" <% if(!schedules[i].enable){ %>checked<% } %> />
+                    </div>
+                </div>
+                <div class="schedule-times">
+                    <% for(j=0; j<schedules[i].slots.length;j++){ %>
+                    <time class="<%= !schedules[i].slots[j].enable? 'disabled': '' %>">
+                        <span><%= schedules[i].slots[j].startTime %> - <%= schedules[i].slots[j].endTime %></span>
+                        <input type="checkbox" onclick="disableSlot('<%= schedules[i]._id %>','<%= schedules[i].slots[j]._id %>',this)" <% if(!schedules[i].slots[j].enable){ %>checked<% } %> />
+                    </time>
+                    <% } %>
+                </div>
+            </div>
+            <% } %>
+            <% } %>
+        </div>
+    </section>
+</div>
+</main>
+
+<%- include("../templetes/footer"); %>
+
+<script src="../templetes/js/header.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clocklet@0.2.6"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+<script src="../templetes/js/modelBox.js"></script>
+<script src="../assets/script/schedules.js"></script>
+
+</body>
+</html>

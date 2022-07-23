@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/appointment.css">
+</head>
+<body>
+    
+<%- include("../templetes/header") %>
+
+<main>
+    <div class="form">
+        <h4 class="form-title">Book an Appointment</h4>
+        <form>
+            <h5>Select Appointment Date*</h5>
+            <input type="date" name="date" required>
+            <h6>Time interval*</h6>
+            <ul>
+                <li><input type="radio" name="time" id="morning"><label for="morning">Morning</label></li>
+                <li><input type="radio" name="time" id="afternoon"><label for="afternoon">Afternoon</label></li>
+                <li><input type="radio" name="time" id="evening"><label for="evening">Evening</label></li>
+            </ul>
+            <h6>Appointment Status/Urgency*</h6>
+            <ul>
+                <li><input type="radio" name="status" id="routine"><label for="routine">Routine Check-up</label></li>
+                <li><input type="radio" name="status" id="not-urgent"><label for="not-urgent">Not Urgent Check-up</label></li>
+                <li><input type="radio" name="status" id="urgent"><label for="urgent">Urgent Check-up</label></li>
+                <li><input type="radio" name="status" id="surgical"><label for="surgical">Surgical Appointment</label></li>
+            </ul>
+            <h5>Upload Previous Health Record</h5>
+            <input type="file" name="record">
+            <h5>Appointment Details</h5>
+            <textarea name="details" cols="30" rows="4"></textarea>
+            <button type="submit">Book an Appointment</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    All rights reserved &copy; Tvastra 2020
+</footer>
+<script src="../templetes/js/header.js"></script>
+    
+</body>
+</html>

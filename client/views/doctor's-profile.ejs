@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About John Nission</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/doctorsProfile.css">
+</head>
+<body>
+
+<%- include("../templetes/header") %>
+<% if(doctor){ %>
+<section id="hero">
+    <div class="container">
+        <div>
+            <h1>About <%= doctor.name %></h1>
+            <span><a href="/">Home</a> / Doctor's Profile</span>
+        </div>
+    </div>
+</section>
+
+<main>
+    <div class="container">
+        <section id="photo">
+            <figure>
+                <img src="./uploads/<%= doctor.avtar %>" alt="doctor">
+            </figure>
+                <button onclick="window.location.href='/appointment'">Book an appointment</button>
+        </section>
+        <section id="accordian">
+            <h2><%= doctor.name %></h2>
+            <p><%= doctor.bio %></p>
+            <ul>
+                <li>
+                    <h4 class="active"><i class="fa fa-award"></i>Specialization</h4>
+                    <div>
+                        <p><%= doctor.specializations.join(", ") %></p>
+                    </div>
+                </li>
+                <li>
+                    <h4><i class="fa fa-stethoscope"></i>List of treatments</h4>
+                    <div>
+                        <p>Praesentium, corporis? Vitae sit sapiente delectus magnam vel maxime dolorum sunt quas autem! Tempora doloremque sapiente facilis neque eligendi quaerat harum impedit. Voluptates praesentium similique ea doloremque! Animi, minima accusantium.</p>
+                    </div>
+                </li>
+                <li>
+                    <h4><i class="fa fa-hospital"></i>Work experience</h4>
+                    <div>
+                        <p>I have <%= doctor.experience %> years of good experience.</p>
+                    </div>
+                </li>
+                <li>
+                    <h4><i class="fa fa-star"></i>qualification</h4>
+                    <div>
+                        <p>My qualifications are <%= doctor.qualifications.join(", ") %>.</p>
+                    </div>
+                </li>
+                <li>
+                    <h4><i class="fa fa-trophy"></i>awards</h4>
+                    <div>
+                        <p><% if(doctor.awards){ %>I have collected <%= doctor.awards.join(", ") %>.<% }else{ %>No Awards<% } %></p>
+                    </div>
+                </li>
+                <li>
+                    <h4><i class="fa fa-map-marker-alt"></i>location</h4>
+                    <div>
+                        <p><%= doctor.houseNo? doctor.houseNo + ', ' : '' %><%= doctor.colony? doctor.colony + ', ' : '' %><%= doctor.city %>, <%= doctor.state %>, <%= doctor.country %>.</p>
+                    </div>
+                </li>
+                <li>
+                    <h4><i class="fa fa-rupee-sign"></i>avg fees</h4>
+                    <div>
+                        <p>My average fees is about &#x20B9;<%= doctor.avgFees %>.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+</main>
+<% } %>
+
+<%- include("../templetes/needHelp"); %>
+
+<%- include("../templetes/footer"); %>
+
+<script src="../templetes/js/header.js"></script>
+<script src="../templetes/js/accordian.js"></script>
+
+</body>
+</html>

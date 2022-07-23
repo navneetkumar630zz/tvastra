@@ -1,0 +1,28 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/profileDashboard";
+@import "../../templetes/css/toaster";
+@import "../../templetes/css/modelBox";
+
+main section{
+    padding: 1rem;
+    min-height: 80vh;
+}
+table{
+    width: 100%;
+}
+thead{
+    background: var(--dark);
+    color: var(--white);
+}
+th,td{
+    padding: 0.5rem;
+    border: 1px solid var(--grey);
+}
+tr:nth-child(even){
+    background: var(--light-grey);
+}
+.cancel-btn{
+    @extend a
+}

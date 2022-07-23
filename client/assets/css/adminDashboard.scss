@@ -1,0 +1,60 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/profileDashboard";
+@import "../../templetes/css/toaster";
+
+aside li:first-child a{
+    color: var(--text);
+    background: var(--grey);
+    font-weight: bold;
+    border-left: 5px solid var(--text);
+}
+#stats{
+    display: flex;
+    justify-content: space-between;
+    background: none;
+    margin: 1rem 0;
+}
+.stats_card {
+    background: var(--white);
+    width: 12rem;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0.5rem;
+    color: var(--text);
+    box-shadow: 3px 2px 0.6rem -3px var(--text-grey);
+    i{
+        font-size: 2rem;
+        margin-right: 0.6rem;
+    }
+    span{
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+#graphs{
+    padding: 1rem;
+    img{
+        width: auto;
+    }
+}
+#patient-enrolled{
+    padding: 1rem;
+    table{
+        width: 100%;
+    }
+    thead{
+        background: var(--dark);
+        color: var(--white);
+    }
+    th,td{
+        padding: 0.5rem;
+        border: 1px solid var(--grey);
+    }
+    tr:nth-child(even){
+        background: var(--light-grey);
+    }
+}

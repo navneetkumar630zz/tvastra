@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Query</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/submit-your-query.css">
+
+</head>
+<body>
+    
+<%- include("../templetes/header") %>
+
+<main>
+    <div class="form">
+        <h4 class="form-title">Submit your query</h4>
+        <form>
+            <input type="text" name="otp" placeholder="Enter Name">
+            <input type="tel" name="mobile" placeholder="Enter Mobile Number">
+            <input type="email" name="email" placeholder="Enter email">
+            <textarea name="content" placeholder="Write your query here.." cols="30" rows="10"></textarea>
+            <button type="submit">submit</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    All rights reserved &copy; Tvastra 2020
+</footer>
+<script src="../templetes/js/header.js"></script>
+    
+</body>
+</html>

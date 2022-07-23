@@ -1,0 +1,16 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/formPage";
+@import "../../templetes/css/toaster";
+
+#headerButtons a:first-child{
+    display: none;
+}
+form{
+    div{
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+    }
+}

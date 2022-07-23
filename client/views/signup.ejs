@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup page</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/signup.css">
+
+</head>
+<body>
+    
+    <% if(message.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Error</h5>
+            <p><%= message %></p>
+        </div>
+    <% } %>
+    
+<%- include("../templetes/header") %>
+
+<main>
+    <div class="form">
+        <h4 class="form-title">Sign Up</h4>
+        <form method="POST">
+            <input type="text" name="name" placeholder="Enter Name" required autofocus>
+            <input type="email" name="email" placeholder="Enter Email" required>
+            <input type="password" name="password" placeholder="Enter Password" required pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,}" title="Your password must contain atleast one digit, one Uppercase and one Lowercase character and is of atleast 8 digits">
+            <select name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <input type="date" name="dob">
+            <input type="tel" name="mobile" placeholder="Enter Phone Number" required pattern="\d{10}">
+            <div>
+                <input type="text" name="city" placeholder="Enter City">
+                <input type="text" name="state" placeholder="Enter State">
+            </div>
+            <input name="country" list="country" placeholder="Select Your Country">
+            <datalist id="country">
+                <option value="India"></option>
+                <option value="Srilaka"></option>
+                <option value="Pakistan"></option>
+                <option value="America"></option>
+                <option value="China"></option>
+                <option value="Nepal"></option>
+            </datalist>
+            <div>
+                <input type="checkbox" name="isDoctor" id="isDoctor"><label for="isDoctor">Is Doctor?</label>
+            </div>
+            <button type="submit">Sign up</button>
+        </form>
+        <div class="form-foot">
+            Already Registered? <a href="/login">Login</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    All rights reserved &copy; Tvastra 2020
+</footer>
+<script src="../templetes/js/header.js"></script>
+
+    
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/adminDashboard.css">
+</head>
+<body>
+    
+    <% if(message.length>0){ %>
+        <div class="toaster success">
+            <i class="fa fa-check-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Success</h5>
+            <p><%= message %></p>
+        </div>
+    <% } %>
+
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <%- include("../templetes/asideProfileDashboard_admin") %>
+
+    <div>
+    <section id="stats">
+        <div class="stats_card">
+            <i class="fa fa-user"></i>
+            <div>
+                <span>Users</span>
+                <small><%= usersCount %></small>
+            </div>
+        </div>
+        <div class="stats_card">
+            <i class="fa fa-user-md"></i>
+            <div>
+                <span>Doctors</span>
+                <small><%= doctorsCount %></small>
+            </div>
+        </div>
+        <div class="stats_card">
+            <i class="fa fa-hospital"></i>
+            <div>
+                <span>Hospitals</span>
+                <small>22</small>
+            </div>
+        </div>
+        <div class="stats_card">
+            <i class="fa fa-briefcase-medical"></i>
+            <div>
+                <span>Appointments</span>
+                <small><%= appointments.length %></small>
+            </div>
+        </div>
+    </section>
+
+    <section id="graphs">
+        <div class="graph_container">
+            <h3>Hospital Survey</h3>
+            <img src="../assets/images/line-graph.jpg" alt="hospital graph">
+        </div>
+        <div class="graph_container">
+            <h3>Patient Age</h3>
+            <img src="../assets/images/piechart.jpg" alt="patient age graph">
+        </div>
+    </section>
+
+    <section id="patient-enrolled">
+        <table>
+            <caption><h3>Patient Enrolled</h3></caption>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone number</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% var emails = [] %>
+                <% for(i=0;i<appointments.length;i++){ %>
+                <% if(!emails.includes(appointments[i].patient.email)){ %>
+                <% emails.push(appointments[i].patient.email) %>
+                <tr>
+                    <td><%= appointments[i].patient.name %></td>
+                    <td><%= appointments[i].patient.mobile %></td>
+                    <td><%= appointments[i].patient.email %></td>
+                    <td><a href="/myAppointments?userId=<%= appointments[i].user %>">Appointment Details</a></td>
+                </tr>
+                <% }} %>
+            </tbody>
+        </table>
+    </section>
+    </div>
+    
+</div>
+</main>
+
+<script src="../templetes/js/header.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/allAppointments.css">
+</head>
+<body>
+    
+    <% if(message.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Failure</h5>
+            <p><%= message %></p>
+        </div>
+    <% } %>
+
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <%- include("../templetes/asideProfileDashboard_admin") %>
+    <section>
+        <table>
+            <caption><h1>All Appointments of Dr Navneet</h1></caption>
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Patient mobile</th>
+                    <th>User</th>
+                    <th>Hospital</th>
+                    <th>Date</th>
+                    <th>Timming</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(i=0;i<appointments.length;i++){ %>
+                <tr>
+                    <td><%= appointments[i].patient.name %></td>
+                    <td><%= appointments[i].patient.mobile %></td>
+                    <td><%= appointments[i].user.name %></td>
+                    <td><%= appointments[i].hospital %></td>
+                    <td><%= appointments[i].date.toDateString() %></td>
+                    <td><%= appointments[i].startTime %> to <%= appointments[i].endTime %></td>
+                    <td><%= appointments[i].status %></td>
+                    <td><% if(appointments[i].status!="completed"){ %><span class="cancel-btn" onclick="openModelBox('<%= appointments[i]._id %>')">Cancel</span><% } %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </section>
+</div>
+</main>
+
+<div class="model-box-background">
+    <div class="model-box">
+        <div>
+            <h4>Cancel Appointment?</h4>
+        </div>
+        <div>
+            <span>Are you sure you want to cancel your appointment?</span>
+        </div>
+        <div class="button-group">
+            <button class="danger">Yes</button>
+            <button class="text" onclick="closeModelBox()">No</button>
+        </div>
+    </div>
+</div>
+
+<script src="../templetes/js/header.js"></script>
+<script src="../templetes/js/modelBox.js"></script>
+
+</body>
+</html>

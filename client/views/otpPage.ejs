@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter OTP</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/otpPage.css">
+</head>
+<body>
+    
+    <% if(message.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Failure</h5>
+            <p><%= message %></p>
+        </div>
+    <% } %>
+
+<%- include("../templetes/header") %>
+
+<main>
+    <div class="form">
+        <h4 class="form-title">OTP</h4>
+        <form action="/otpPage" method="POST">
+            <p>We have sent One Time Password (OTP) to your registered Phone Number.</p>
+            <div id="inputs">
+                <input type="hidden" name="subject" value="<%= subject %>">
+                <input type="hidden" name="requestId" value="<%= requestId %>">
+                <input type="tel" name="otp" maxlength="4" minlength="4" autofocus autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length===4) this.blur()" required />
+                <div>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <button type="button" id="resend" onclick="resend()" disabled>Resend in 60</button>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="form-foot">
+            Back to <a href="/login">Login Page</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    All rights reserved &copy; Tvastra 2020
+</footer>
+<script src="../templetes/js/header.js"></script>
+<script src="../assets/script/otpPage.js"></script>
+
+</body>
+</html>

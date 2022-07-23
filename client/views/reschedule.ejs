@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reschedule appointment</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/reschedule.css">
+</head>
+<body>
+
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <h1>Reschedule Appointment</h1>
+    <section>
+        <h2><%= doctor.name %></h2>
+        <ul class="appointment-details">
+            <li><i class="far fa-clock"></i>Date : <%= appointment.date.toDateString() %></li>
+            <li><i class="fa fa-hospital"></i><%= appointment.hospital %></li>
+            <li><i class="fa fa-play-circle"></i><%= appointment.startTime %></li>
+            <li><i class="fa fa-ban"></i><%= appointment.endTime %></li>
+        </ul>
+        <button class="center toggleBooking">Reschedule Appointment</button>
+        <div class="booking">
+            <% if(schedule.length>0){ %>
+            <% schedule.sort((a,b)=>a.date-b.date) %>
+
+            <div class="booking-dates-group">
+
+                <div class="carousal-btn-left mobile">&lt;</div>
+                <div class="carousal-btn-right mobile">&gt;</div>
+                <div class="carousal-btn-left tablet">&lt;</div>
+                <div class="carousal-btn-right tablet">&gt;</div>
+                
+                <% for(a=0; a<schedule.length;a++){ %>
+                    <div class="booking-date">
+                        <span>
+                            <%= schedule[a].date.toDateString() %>
+                        </span>
+                        <small>
+                            <%= schedule[a].slots.filter(e=> e.enable==true && e.booked==false).length %> Slots Available
+                        </small>
+                    </div>
+                <% } %>
+            </div>
+
+            <% for(a=0; a<schedule.length;a++){ %>
+            <div class="booking-times-group">
+                <div class="booking-time">
+                    <div class="daytime">Morning</div>
+                    <ul>
+                        <% for(j=0; j<schedule[a].slots.length;j++){ %>
+                        <% if(schedule[a].slots[j].enable && schedule[a].slots[j].booked==false){ %>
+                        <% if(moment(schedule[a].slots[j].startTime,"hh:mm A").isBefore(moment("12:00 PM","hh:mm A"))){ %>
+                            <li onclick="window.location.href='/rescheduleAppointment/?appointmentId=<%= appointment._id %>&hospital=<%= schedule[a].hospital %>&slotId=<%= schedule[a].slots[j]._id %>&date=<%= schedule[a].date %>&time=<%= schedule[a].slots[j].startTime %>-<%= schedule[a].slots[j].endTime %>&oldSlotId=<%= oldSlotId %>'"><%= schedule[a].slots[j].startTime %></li>
+                        <% } %>
+                        <% } %>
+                        <% } %>
+                    </ul>
+                </div>
+                <div class="booking-time">
+                    <div class="daytime">Afternoon</div>
+                    <ul>
+                        <% for(j=0; j<schedule[a].slots.length;j++){ %>
+                        <% if(schedule[a].slots[j].enable && schedule[a].slots[j].booked==false){ %>
+                        <% if(moment(schedule[a].slots[j].startTime,"hh:mm A").isBefore(moment("04:00 PM","hh:mm A")) && moment(schedule[a].slots[j].startTime,"hh:mm A").isAfter(moment("11:59 AM","hh:mm A"))){ %>
+                            <li onclick="window.location.href='/rescheduleAppointment/?appointmentId=<%= appointment._id %>&hospital=<%= schedule[a].hospital %>&slotId=<%= schedule[a].slots[j]._id %>&date=<%= schedule[a].date %>&time=<%= schedule[a].slots[j].startTime %>-<%= schedule[a].slots[j].endTime %>&oldSlotId=<%= oldSlotId %>'"><%= schedule[a].slots[j].startTime %></li>
+                        <% } %>
+                        <% } %>
+                        <% } %>
+                    </ul>
+                </div>
+                <div class="booking-time">
+                    <div class="daytime">Evening</div>
+                    <ul>
+                        <% for(j=0; j<schedule[a].slots.length;j++){ %>
+                        <% if(schedule[a].slots[j].enable && schedule[a].slots[j].booked==false){ %>
+                        <% if(moment(schedule[a].slots[j].startTime,"hh:mm A").isAfter(moment("03:59 PM","hh:mm A"))){ %>
+                            <li onclick="window.location.href='/rescheduleAppointment/?appointmentId=<%= appointment._id %>&hospital=<%= schedule[a].hospital %>&slotId=<%= schedule[a].slots[j]._id %>&date=<%= schedule[a].date %>&time=<%= schedule[a].slots[j].startTime %>-<%= schedule[a].slots[j].endTime %>&oldSlotId=<%= oldSlotId %>'"><%= schedule[a].slots[j].startTime %></li>
+                        <% } %>
+                        <% } %>
+                        <% } %>
+                    </ul>
+                </div>
+                <div class="booking-hospital-name"><%= schedule[a].hospital %></div>
+            </div>
+            <% } %>
+            <% }else{ %>
+            <div class="no-schedule">No Schedule</div>
+            <% } %>
+        </div>
+    </section>
+</div>
+</main>
+
+<%- include("../templetes/needHelp"); %>
+
+<!-- IMPORTING FOOTER  -->
+<%- include("../templetes/footer"); %>
+
+<script src="../templetes/js/header.js"></script>
+<script src="../assets/script/doctors.js"></script>
+</body>
+</html>

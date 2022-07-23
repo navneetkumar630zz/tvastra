@@ -1,0 +1,22 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/heroSection";
+@import "../../templetes/css/needHelp";
+@import "../../templetes/css/footer";
+@import "../../templetes/css/accordian";
+
+@mixin media($screenWidth) {
+    @media screen and (min-width: $screenWidth){
+        @content;
+    }
+}
+
+#hero{
+    background-image: url(https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/contactUs.png);
+}
+main{
+    *{
+        line-height: 1.5;
+    }
+}

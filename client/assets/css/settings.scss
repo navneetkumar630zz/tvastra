@@ -1,0 +1,12 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/footer";
+@import "../../templetes/css/profileDashboard";
+
+aside li:last-child a{
+    color: var(--text);
+    background: var(--grey);
+    font-weight: bold;
+    border-left: 5px solid var(--text);
+}

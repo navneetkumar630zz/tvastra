@@ -1,0 +1,27 @@
+@charset "utf-8";
+#hero{
+    background-color: var(--light);
+    background-size: cover;
+    background-position: center center;
+    padding: 4rem 1rem;
+    .container{
+        height: 8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include media($bp-desktop){
+            justify-content: start;
+        }
+        span{
+            display: block;
+            color: var(--white);
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            font-weight: normal;
+            line-height: 1.3;
+            a{
+                color: var(--white);
+            }
+        }
+    }
+}

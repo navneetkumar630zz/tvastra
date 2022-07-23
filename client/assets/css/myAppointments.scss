@@ -1,0 +1,96 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/footer";
+@import "../../templetes/css/profileDashboard";
+@import "../../templetes/css/toaster";
+@import "../../templetes/css/modelBox";
+
+aside li:nth-child(2) a{
+    color: var(--text);
+    background: var(--grey);
+    font-weight: bold;
+    border-left: 5px solid var(--text);
+}
+.no-appointment{
+    color: var(--text-grey);
+    margin: 2rem 0;
+    font-size: 1.7rem;
+    font-weight: bold;
+    text-align: center;
+}
+main{
+    section{
+        padding: 1rem;
+    }
+}
+.appointment{
+    display: grid;
+    grid-gap: 0.6rem;
+    background: whitesmoke;
+    padding: 0.5rem;
+    border: 1px solid var(--dark-grey);
+    border-radius: 0.3rem;
+    margin-bottom: 1rem;
+    @include media ($bp-tablet){
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+    }
+
+    .btn-group{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 0.5rem;
+    }
+}
+.content{
+    display: grid;
+    grid-template-columns: 7rem auto;
+}
+.day{
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    background: var(--white);
+    @include media ($bp-tablet){
+        width: 7rem;
+        height: 7rem;
+        font-size: 1.4rem;
+    }
+}
+.info{
+    ul{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        height: 100%;
+    }
+    li{
+        font-weight: bold;
+        color: var(--text-grey);
+    }
+    .doctor-name{
+        text-transform: uppercase;
+        color: var(--text);
+        font-size: 1.1rem;
+    }
+    .status{
+        color: var(--white);
+        border-radius: 1rem;
+        font-size: 0.85rem;
+        width: max-content;
+        padding: 0.3rem 0.6rem;
+        margin: 0.4rem auto 0;
+        letter-spacing: 1px;
+        &.confirmed{
+            background: var(--light);
+        }
+        &.completed{
+            background: var(--success);
+        }
+    }
+}

@@ -1,0 +1,94 @@
+@charset "utf-8";
+
+body{
+    min-height: 100vh;
+    background: var(--light-grey);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+h1{
+    color: #000;
+}
+main{
+    padding: 0.5rem;
+    @include media($bp-desktop){
+        .container{
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+        }
+    }
+}
+aside{
+    padding: 1rem 1rem 1rem 0;
+    li{
+        display: inline-block;
+        @include media($bp-desktop){
+            display: block;
+        }
+    }
+    a{
+        padding: 0.8rem 0.6rem;
+        display: flex;
+        color: #000;
+        @include media($bp-desktop){
+            transition: 0.3s;
+            font-size: 1.2rem;
+            border-radius: 4px;
+            margin: 0.1rem 0;
+            &:hover{
+                text-decoration: none;
+                border-left: 5px solid var(--text);
+                background: var(--grey);
+            }
+        }
+    }
+    i{
+        color: var(--text);
+        width: 2rem;
+    }
+}
+section{
+    border-radius: 5px;
+    background: var(--white);
+    padding: 0;
+}
+form{
+    &>div{
+        padding: 1rem;
+        border-bottom: 1px solid var(--grey);
+    }
+}
+.header{
+    button{
+        width: 100%;
+        margin-top: 1rem;
+    }
+    @include media($bp-tablet){
+        display: flex;
+        justify-content: space-between;
+        button{
+            width: auto;
+            margin-top: 0;
+        }
+    }
+}
+label{
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+.form-group{
+    @include media($bp-tablet){
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1rem;
+    }
+    @include media($bp-desktop){
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+.input-group.full-width{
+    grid-column: 1/-1;
+}

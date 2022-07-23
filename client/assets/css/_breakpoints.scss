@@ -1,0 +1,8 @@
+@charset "utf-8";
+$bp-tablet: 768px;
+$bp-desktop: 1025px;
+@mixin media($screenWidth) {
+    @media screen and (min-width: $screenWidth){
+        @content;
+    }
+}

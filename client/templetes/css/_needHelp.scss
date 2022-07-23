@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+#need-help{
+    background: var(--light);
+    text-align: center;
+    h2{
+        color: var(--white);
+        text-transform: capitalize;
+    }    
+    button{
+        font-size: 1rem;
+        color: var(--white);
+        padding: .8rem 1.4rem;
+        border-radius: 5px;
+        margin: 1.3rem 0;
+        &:hover{
+            background: rgb(33, 126, 189);
+        }
+    }
+    @media screen and (min-width: 1025px){
+        padding: 2rem 1rem;
+        text-align: left;
+        .container{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h2{
+            font-size: 2.4rem;
+        }
+        button{
+            font-size: 1.25rem;
+            letter-spacing: 1.3px;
+            padding: 1.3rem 2.6rem;
+        }
+    }
+}

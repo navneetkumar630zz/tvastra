@@ -1,0 +1,30 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/formPage";
+@import "../../templetes/css/toaster";
+
+#headerButtons a:first-child, #profile{
+    display: none;
+}
+form>span{
+    display: block;
+    text-align: center;
+}
+@include media($bp-tablet){
+    .form{
+        width: 37.5rem;
+    }
+}
+.tagify {
+    border-width: 2px;
+    margin: 0.5rem 0;
+    padding: 0.2rem;
+    &.tagify--focus{
+        border-color: var(--light);
+    }
+    
+}
+.tagify__tag>div>*{
+    overflow: visible;
+}

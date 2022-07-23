@@ -1,0 +1,438 @@
+@charset "UTF-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/needHelp";
+@import "../../templetes/css/footer";
+@import "../../templetes/css/toaster";
+
+@mixin media($screenWidth) {
+    @media screen and (min-width: $screenWidth){
+      @content;
+    }
+}
+
+@keyframes slide {
+    from {
+      transform: translateX(10%);
+      opacity: 0.2;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+}
+@keyframes fade {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+.heading{
+    text-align: center;
+    h1,h2{
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-transform: capitalize;
+      @include media($bp-desktop){
+          font-size: 2.4rem;
+        }
+    }
+    h1{
+        color: #000;
+    }
+    p{
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+    @include media($bp-desktop){
+      text-align: left;
+    }
+}
+
+#find-healthcare{
+    background: var(--light);
+    padding: 2rem 0.6rem;
+    @include media($bp-desktop){
+        background: url(https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/img1.jpg);
+        background-size: cover;
+        padding: 7.5rem 0;
+        .heading{
+            width: 50%;
+        }
+    }
+    form{
+        padding: 0;
+        @include media($bp-tablet){
+            display: flex;
+            justify-content: center;
+            #search-doctors{
+                width: 23rem;
+                padding: 0 1.5rem;
+                border-left: 2px solid var(--grey);
+            }
+        }
+        @include media($bp-desktop){
+            justify-content: start;
+        }
+        .location-input-container{
+            display: flex;
+            i,div{
+                width: 1.9rem;
+                background: var(--white);
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                font-size: 1.1rem;
+            }
+            div{
+                justify-content: flex-start;
+                img{
+                    width: 1.1rem;
+                    opacity: 0.5;
+                }
+            }
+            input{
+                margin: 0;
+                @include media($bp-tablet){
+                    width: 7rem;
+                }
+                @include media($bp-desktop){
+                    width: auto;
+                }
+            }
+        }
+        input{
+            width: 100%;
+            height: 2.4rem;
+            border: none;
+            letter-spacing: 0.3px;
+            @include media($bp-tablet){
+                height: 100%;
+                margin: 0;
+            }
+            &::placeholder{
+                color: var(--text-grey);
+            }
+        }
+        button{
+            padding: 0.75rem 2.5rem;
+            color: var(--white);
+            @include media($bp-tablet){
+                margin: initial;
+            }
+            @include media($bp-desktop){
+                padding: 1.1rem 3.5rem;
+            }
+            &:hover {
+              background: rgb(42, 64, 126);
+            }
+        }
+    }
+    .search-input-container{
+        position: relative;
+    }
+    .searchSuggestions{
+        position: absolute;
+        width: 100%;
+        li {
+            background: var(--white);
+            padding: 0.5rem 1rem;
+            border-top: 1px solid var(--light-grey);
+            border-left: 2px solid var(--grey);
+            border-right: 2px solid var(--grey);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            &:last-child{
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+                border-bottom: 2px solid var(--grey);
+            }
+        }
+        small{
+            color: var(--text-grey);
+        }
+    }
+}
+#how-it-works{
+    ol{
+        counter-reset: list;
+        margin: 3rem 0;
+        @include media($bp-tablet){
+            margin: 0;
+            width: 40%;
+            min-width: 19rem;
+        }
+        @include media($bp-desktop){
+            margin: 2rem 0;
+        }
+        li{
+            padding: 1rem;
+            padding-left: 3rem;
+            color: var(--dark-grey);
+            font-size: 1.2rem;
+            border: 2px solid var(--light-grey);
+            border-radius: 0.5rem;
+            font-weight: bold;
+            margin: 0.6rem 0;
+            position: relative;
+            cursor: pointer;
+            @include media($bp-desktop){
+                padding: 2.5rem 1.25rem;
+                padding-left: 6.25rem;
+                font-size: 1.3rem;
+            }
+            &::before{
+                counter-increment: list;
+                content: "0" counter(list);
+                color: var(--grey);
+                font-size: 1.1rem;
+                position: absolute;
+                top: 1rem;
+                left: 1.1rem;
+                @include media($bp-desktop){
+                    font-size: 1.6rem;
+                    top: 2.4rem;
+                    left: 2.5rem;
+                }
+            }
+            &.active{
+                border-color: var(--light);
+                color: #555;
+                &::before{
+                    color: var(--light);
+                }
+            }
+        }
+    }
+    .describe-item{
+        text-align: center;
+        margin-bottom: 2.5rem;
+        display: none;
+        @media screen and (max-width: $bp-tablet - 1px){
+            &.active{
+                display: block;
+            }
+        }
+    }
+    @include media($bp-tablet){
+        .content{
+            display: flex;
+            & > .describe-item{
+                display: block;
+                width: 20rem;
+                margin: auto;
+                align-self: center;
+                @include media($bp-desktop){
+                    width: 32rem;
+                    margin: 0 0 0 auto;
+                    h5{
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#doctors{
+    background: var(--dark);
+    overflow-x: hidden;
+    .heading{
+        color: var(--white);
+    }
+    .doctor-group{
+        animation: slide 0.5s ease;
+        display: none;
+        &.active{
+            display: block;
+            @include media($bp-tablet){
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+        }
+    }
+    .doctor-card{
+        margin-top: 1rem;
+        background: var(--white);
+        border-bottom: 5px solid var(--light);
+        @include media($bp-tablet){
+            width: 49%;
+            margin-top: 1rem;
+        }
+        @include media($bp-desktop){
+            width: 24%;
+        }
+        .card-img{
+            height: 21.5rem;
+            overflow: hidden;
+            img{
+                height: 100%;
+            }
+        }
+        figcaption{
+            padding: 0.6rem 2rem;
+            font-size: 0.75rem;
+            line-height: 1.06;
+            letter-spacing: 1px;
+            h5{
+                color: var(--text);
+                position: relative;
+                padding: 0.5rem 0;
+                &::before{
+                    content: "";
+                    width: 1.6rem;
+                    height: 2px;
+                    background: var(--text);
+                    position: absolute;
+                    top: 1rem;
+                    left: -2rem;
+                }
+            }
+            li{
+                line-height: 1.3rem;
+            }
+        }
+    }
+}
+
+.carousal-radios {
+    margin-top: 3.125rem;
+    margin-left: 1.25rem;
+  
+    span {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        background: var(--dark-grey);
+        background-clip: content-box;
+        border: 3px solid transparent;
+        border-radius: 50%;
+        margin-left: 0.5rem;
+        transition: 0.4s;
+        cursor: pointer;
+    
+        &.active {
+            background: none;
+            border-color: var(--text);
+        }
+    }
+}
+
+.gallary-group{
+    animation: fade 1s ease;
+    display: none;
+    &.active{
+        display: block;
+        @include media($bp-tablet){
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 1.25rem;
+        }
+        @include media($bp-desktop){
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 250px 70px 40px 400px;
+            .item1 {
+              grid-row: 1 / 2;
+            }
+            
+            .item2 {
+              grid-row: 2 / -1;
+            }
+            
+            .item3 {
+              grid-row: 1 / 4;
+            }
+            
+            .item4 {
+              grid-row: 4 / -1;
+            }
+            
+            .item5 {
+              grid-row: 1 / 3;
+            }
+            
+            .item6 {
+              grid-row: 3 / -1;
+            }
+            
+        }
+    }
+    figure{
+        height: 20rem;
+        margin-top: 1rem;
+        position: relative;
+        @include media($bp-tablet){
+            margin: 0;
+        }
+        @include media($bp-desktop){
+            height: initial;
+        }
+        img{
+            height: 100%;
+        }
+        &::after {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            content: "";
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(to top, rgba(21, 30, 59, 0.847) 40px, rgba(0, 0, 0, 0) 120px);
+            z-index: 1;
+        }
+    }
+    figcaption {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        color: var(--white);
+        line-height: 1.5rem;
+        z-index: 2;
+    }
+}
+
+#exclusive-services{
+    background: var(--light-grey);
+}
+#service-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .service-card {
+        width: 48%;
+        height: 9.4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: var(--white);
+        margin-top: .6rem;
+        border-radius: 1rem;
+        @include media($bp-tablet){
+            width: 32%;
+        }
+        @include media($bp-desktop){
+            width: 11.6rem;
+            height: 10.6rem;
+            border-radius: 0;
+        }
+        img{
+            width: 4.5rem;
+        }
+        h6{
+            text-transform: uppercase;
+            color: var(--text-grey);
+            font-size: .8rem;
+            @include media($bp-desktop){
+                font-size: 1rem;
+            }
+        }
+    }
+}

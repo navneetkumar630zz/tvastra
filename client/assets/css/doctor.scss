@@ -1,0 +1,390 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/heroSection";
+@import "../../templetes/css/asideFilters";
+@import "../../templetes/css/needHelp";
+@import "../../templetes/css/footer";
+@import "../../templetes/css/toaster";
+@import "../../templetes/css/pagination";
+#hero, aside {
+  display: none;
+}
+
+header nav ul li:first-child a {
+  color: var(--light);
+}
+
+/* -------------------------  T O P B A R  ------------------------ */
+
+#topbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+#breadcrumb {
+  font-size: 1.1rem;
+  color:var(--text-grey);
+  text-decoration: none;
+
+  a {
+    font-size: 1.1rem;
+    color:var(--text-grey);
+
+    &:hover {
+      text-decoration-color:var(--text-grey);
+    }
+  }
+}
+
+#resultsCount{
+  display: none;
+  @include media ($bp-tablet){
+    display: block;
+    color: var(--text-grey);
+  }
+}
+
+#sortby {
+  position: relative;
+
+  button {
+    color: #000;
+    border: none;
+    padding: 13px 23px;
+    background: var(--light-grey);
+  }
+
+  ul {
+    position: absolute;
+    top: 2.7rem;
+    right: 0;
+    width: max-content;
+    min-width: 8rem;
+    padding: 10px 2px;
+    background: rgba(255, 255, 255, 0.705);
+    border: 1px solid var(--dark-grey);
+    line-height: 1.8rem;
+    transform: rotateX(90deg);
+    transform-origin: top;
+    transition: 0.2s;
+    z-index: 5;
+    pointer-events: none;
+
+    &.active {
+      transform: rotateX(0);
+      pointer-events: initial;
+    }
+
+    li {
+      padding: 2px 10px;
+      transition: 0.2s;
+
+      &:hover {
+        cursor: default;
+        background: var(--dark);
+        color: var(--white);
+      }
+    }
+  }
+}
+  
+/* -------------------------   D O C T O R S  --------------------- */
+@include media ($bp-tablet){
+  #doctors {
+    padding: 0;
+  }
+}
+
+.doctor-card {
+  width: 100%;
+  border: 2px solid var(--grey);
+  margin-bottom: 1rem;
+  
+  @include media ($bp-tablet){
+    display: grid;
+    grid-template-columns: auto minmax(200px, 270px);
+  }
+
+  figure {
+    width: 100%;
+    height: 19rem;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .details {
+    padding: 1.25rem 0.625rem;
+
+    @include media ($bp-tablet){
+      padding-left: 2rem;
+      
+      ul {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, minmax(2.5rem, max-content));
+        align-items: center;
+        grid-gap: 5px 1rem;
+        margin-bottom: 0.4rem;
+      }
+
+      button{
+        margin: 0;
+      }
+    }
+    @include media ($bp-desktop){
+      padding: 1.9rem;
+      padding-left: 3rem;
+    }
+
+    h4 {
+      color: var(--text);
+      font-size: 1.3rem;
+      font-weight: bold;
+      position: relative;
+      margin-left: 40px;
+
+      &::before {
+        content: "";
+        width: 2.5rem;
+        height: 2px;
+        background: var(--text);
+        position: absolute;
+        top: 9px;
+        left: -50px;
+      }
+
+      @include media ($bp-tablet){
+        margin-left: 0;
+
+        &::before {
+          width: 1.5rem;
+          left: -2rem;
+        }
+      }
+
+      @include media ($bp-desktop){
+        font-size: 1.5rem;
+
+        &::before {
+          width: 2.5rem;
+          left: -50px;
+        }
+      }
+    }
+    li {
+      display: flex;
+      margin: 1rem 0;
+
+      @include media ($bp-tablet){
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.1rem;
+      }
+  
+      i {
+        margin-right: 1rem;
+        color: var(--text);
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+/* -------------------------  B O O K I N G ------------------------------ */
+.booking{
+  position: relative;
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.3s;
+  @include media($bp-tablet){
+    grid-column: 1 / -1;
+  }
+}
+.no-schedule{
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--text);
+  font-weight: bold;
+  padding: 0.5rem 0;
+  background: var(--light-grey);
+}
+.no-slots{
+  padding: 2rem;
+  text-align: center;
+  span{
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: var(--text-grey);
+    font-size: 1.2rem;
+  }
+}
+.booking-dates-group{
+  height: 10rem;
+  overflow: hidden;
+
+  @include media ($bp-tablet){
+    display: flex;
+    height: auto;
+    max-width: 100%;
+    margin: 0 3rem;
+  }
+  
+  [class ^= "carousal-btn"]{
+    position: absolute;
+    top: 4rem;
+    left: 1rem;
+    color: var(--text);
+    font-weight: bold;
+    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+    background: var(--grey);
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    z-index: 3;
+    user-select: none;
+
+    &.tablet{
+      display: none;
+    }
+
+    @include media ($bp-tablet){
+      top: 0.5rem;
+      
+      &.mobile{
+        display: none;
+      }
+      &.tablet{
+        display: block;
+      }
+    }
+  }
+  .carousal-btn-right{
+    left: auto;
+    right: 1rem;
+  }
+}
+.booking-date{
+  text-align: center;
+  height: 3rem;
+  width: 65%;
+  min-width: 50%;
+  margin: auto;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #0000;
+  will-change: transform;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover{
+    border-bottom-color: var(--text);
+  }
+
+  &.active{
+    border-bottom: 3px solid var(--text);
+  }
+
+  @include media($bp-desktop){
+    min-width: 33.33333%;
+  }
+  span{
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  small{
+    color: var(--text);
+    font-weight: bold;
+  }
+}
+.booking-times-group{
+  display: none;
+  &.active{
+    display: block;
+  }
+}
+.booking-time{
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--grey);
+  @include media($bp-tablet){
+    display: grid;
+    align-items: center;
+    grid-template-columns: 10rem auto;
+  }
+  ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    @include media ($bp-tablet){
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 1rem;
+    }
+    @include media ($bp-desktop){
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  li {
+    padding: 0.6rem;
+    border: 1px solid var(--success);
+    color: var(--success);
+    margin-top: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+  .daytime {
+    text-align: center;
+}
+.booking-hospital-name{
+  padding: 0.5rem;
+  text-align: center;
+  color: var(--success);
+  font-weight: bold;
+}
+
+/* ------------------------------  M E D I A  --------------------------------- */
+@include media($bp-tablet) {
+  #hero {
+    display: block;
+    background-image: linear-gradient(rgba(147, 190, 222, 0.85), rgba(147, 190, 222, 0.85)), url(https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/Doctors.png);
+
+    h1 {
+      color: #000;
+      font-weight: normal;
+
+      u {
+        font-weight: bold;
+      }
+    }
+  }
+
+  main .container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+  }
+
+  aside {
+    display: block;
+
+    #selected-filters {
+      display: none;
+    }
+  }
+}
+
+@include media($bp-desktop) {
+  aside #selected-filters {
+    display: block;
+  }
+}

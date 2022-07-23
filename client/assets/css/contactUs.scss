@@ -1,0 +1,83 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/heroSection";
+@import "../../templetes/css/footer";
+
+
+#hero{
+    background-image: url(https://s3.ap-south-1.amazonaws.com/appdev.konfinity.com/css/tasks/contactUs.png);
+}
+@media screen and (max-width: 576px){
+    section{ padding: 0; }
+}
+main{
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--grey);
+}
+#contact{
+    @include media($bp-desktop){
+        display: flex;
+        max-width: 1200px;
+        margin: auto;
+        section, .container{
+            padding: 0 1rem;
+        }
+    }
+    ul{
+        @include media($bp-tablet){
+            display: flex;
+            justify-content: space-between;
+        }
+        @include media($bp-desktop){
+            display: block;
+            width: 25vw;
+        }
+    }
+    li{
+        display: flex;
+        line-height: 1.5rem;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        @include media($bp-desktop){
+            margin: 1.5rem 0;
+        }
+        i{
+            color: var(--text);
+            font-size: 1.5rem;
+            margin-right: 1.3rem;
+        }
+        h6{
+            font-weight: bold;
+        }
+        span{
+            font-size: 0.8rem;
+        }
+    }
+    section:last-child{
+        background: var(--light);
+    }
+    form{
+        padding-left: 0;
+        padding-right: 0;
+        input,textarea{
+            width: 100%;
+        }
+        button{
+            display: block;
+            margin-left: auto;
+        }
+        #input-group{
+            @include media($bp-tablet){
+                display: flex;
+                justify-content: space-between;
+                div{
+                    width: 49%;
+                }
+                textarea{
+                    height: 11rem;
+                }
+            }
+        }
+    }
+}

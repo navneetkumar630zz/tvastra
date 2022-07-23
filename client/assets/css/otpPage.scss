@@ -1,0 +1,62 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/formPage";
+@import "../../templetes/css/toaster";
+
+html, body{
+    overflow: hidden;
+}
+#headerButtons a:first-child, #profile{
+    display: none;
+}
+form{
+    text-align: center;
+    input{
+        margin-bottom: 0;
+        border: none;
+        letter-spacing: 49px;
+        padding: 1rem 0 2px 0.8rem;
+        font-size: 1.5rem;
+        width: 120% !important;
+        background: none;
+        
+    }
+    a{
+        display: inline-block;
+        margin-top: 1.2rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: bold;
+    }
+    span{
+        display: inline-block;
+        height: 2px;
+        width: 2rem;
+        background: var(--text);
+    }
+}
+#inputs{
+    display: flex;
+    flex-direction: column;
+    width: 15rem;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+    div{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+#resend{
+    padding: 0;
+    width: auto;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    font-size: 1rem;
+    background: none;
+    border: none;
+    &:hover{
+        text-decoration: underline;
+    }
+}

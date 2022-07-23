@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/myAppointments.css">
+</head>
+<body>
+
+    <% if(errorMsg.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Failure</h5>
+            <p><%= errorMsg %></p>
+        </div>
+    <% } %>
+
+    <% if(successMsg.length>0){ %>
+        <div class="toaster success">
+            <i class="fa fa-check-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Success</h5>
+            <p><%= successMsg %></p>
+        </div>
+    <% } %>
+
+
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <%- include("../templetes/asideProfileDashboard") %>
+    <section>
+        <% if(appointments.length===0){ %>
+            <div class="no-appointment">No Appointments 😥</div>
+        <% }else{ %>
+        <div class="header">
+            <h3>Upcomming Appointments</h3>
+        </div>
+        <div id="upcomming-appointments">
+            <% for(i=0;i<appointments.length;i++){ %>
+            <% if(appointments[i].status=="booked"){ %>
+            <div class="appointment">
+                <div class="content">
+                    <div class="day"><%= appointments[i].date.toDateString().substring(4,10) %></div>
+                    <div class="info">
+                        <ul>
+                            <li class="doctor-name"><%= appointments[i].doctor.name %></li>
+                            <li><%= appointments[i].date.toString().split(" ")[0] + " " + appointments[i].startTime %></li>
+                            <li><%= appointments[i].hospital %></li>
+                            <li class="status confirmed">Confirmed</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-text" onclick="window.location.href='/reschedule?appointmentId=<%= appointments[i]._id %>&slotId=<%= appointments[i].slot %>'">Reschedule Appointment</button>
+                    <button class="btn-text" onclick="openModelBox('<%= appointments[i]._id %>')">Cancel Appointment</button>
+                </div>
+            </div>
+            <% }} %>
+        </div>
+        <div class="header">
+            <h3>Completed Appointments</h3>
+        </div>
+        <div id="completed-appointments">
+            <% for(i=0;i<appointments.length;i++){ %>
+            <% if(appointments[i].status=="completed"){ %>
+            <div class="appointment">
+                <div class="content">
+                    <div class="day"><%= appointments[i].date.toDateString().substring(4,10) %></div>
+                    <div class="info">
+                        <ul>
+                            <li class="doctor-name"><%= appointments[i].doctor.name %></li>
+                            <li><%= appointments[i].date.toString().split(" ")[0] + " " + appointments[i].startTime %></li>
+                            <li><%= appointments[i].hospital %></li>
+                            <li class="status completed">Completed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <% }} %>
+        </div>
+        <% } %>
+    </section>
+</div>
+</main>
+
+<div class="model-box-background">
+    <div class="model-box">
+        <div>
+            <h4>Cancel Appointment?</h4>
+        </div>
+        <div>
+            <span>Are you sure you want to cancel your appointment?</span>
+        </div>
+        <div class="button-group">
+            <button class="danger">Yes</button>
+            <button class="text" onclick="closeModelBox()">No</button>
+        </div>
+    </div>
+</div>
+
+<%- include("../templetes/footer"); %>
+
+<script src="../templetes/js/header.js"></script>
+<script src="../templetes/js/modelBox.js"></script>
+<script src="../assets/script/myAppointment.js"></script>
+
+</body>
+</html>

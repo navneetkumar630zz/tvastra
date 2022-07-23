@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Doctors</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/adminUsers.css">
+    <style>
+        aside li:nth-child(3) a{
+            color: var(--text);
+            background: var(--grey);
+            font-weight: bold;
+            border-left: 5px solid var(--text);
+        }
+    </style>
+</head>
+<body>
+    
+    <% if(message.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Failure</h5>
+            <p><%= message %></p>
+        </div>
+    <% } %>
+
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <%- include("../templetes/asideProfileDashboard_admin") %>
+    <section>
+        <h1>All Doctors</h1>
+        <div id="card-container">
+            <% for(i=0;i<doctors.length;i++){ %>
+            <div class="card">
+                <i class="fa fa-ellipsis-v options-icon" onclick="this.nextElementSibling.classList.toggle('active')"></i>
+                <ul class="options">
+                    <li onclick="window.location.href='/profile?userId=<%= doctors[i]._id %>'">Edit profile</li>
+                    <li onclick="window.location.href='/allAppointments?userId=<%= doctors[i]._id %>'">All booked appointments</li>
+                    <li onclick="window.location.href='/myAppointments?userId=<%= doctors[i]._id %>'">Appointments</li>
+                    <li onclick="window.location.href='/medicalReports?userId=<%= doctors[i]._id %>'">Medical reports</li>
+                </ul>
+                <figure>
+                    <img src="../uploads/<%= doctors[i].avtar? doctors[i].avtar : 'default-user-image.png' %>" alt="doctor">
+                </figure>
+                <div class="details">
+                    <h4><%= doctors[i].name %></h4>
+                    <ul>
+                        <li><i class="fa fa-hospital"></i><span><%= doctors[i].specializations.join(", ") %></span></li>
+                        <li><i class="fa fa-award"></i><span><%= doctors[i].qualifications.join(", ") %></span></li>
+                        <li><i class="fa fa-clock"></i><span><%= doctors[i].experience %> Years of Experience</span></li>
+                        <li><i class="fa fa-map-marker-alt"></i><span><%= doctors[i].state %>, <%= doctors[i].Country %></span></li>
+                        <li><i class="fa fa-rupee-sign"></i><span>5000</span></li>
+                    </ul>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </section>
+</div>
+</main>
+
+<script src="../templetes/js/header.js"></script>
+
+</body>
+</html>

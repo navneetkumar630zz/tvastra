@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/login.css">
+</head>
+<body>
+
+    <% if(message.length>0){ %>
+        <div class="toaster danger">
+            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-times" onclick="this.parentElement.style.display='none'"></i>
+            <h5>Failure</h5>
+            <p><%= message %></p>
+        </div>
+    <% } %>
+
+<%- include("../templetes/header") %>
+
+<main>
+    <div class="form">
+        <h4 class="form-title">Login</h4>
+        <form method="POST">
+            <input type="email" name="email" placeholder="Enter Your Email" required autofocus>
+            <div class="inputContainer">
+                <input type="password" name="password" id="password" placeholder="Enter Your Password" required>
+                <i class="fa fa-eye" onclick="show(this)"></i>
+                <i class="fa fa-eye-slash" onclick="hide(this)" style="display: none;"></i>
+            </div>
+                <div><a href="/loginWithOTP">Login with OTP</a><button type="button" id="forgotPassword">Forgot password?</button></div>
+            <button type="submit">Login</button>
+        </form>
+        <div class="form-foot">
+            Not Registered? <a href="/signup">Sign Up</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    All rights reserved &copy; Tvastra 2020
+</footer>
+<script src="../templetes/js/header.js"></script>
+<script src="../assets/script/login.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment status</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/css/appointmentStatus.css">
+</head>
+<body>
+<%- include("../templetes/header") %>
+
+<main>
+<div class="container">
+    <section>
+        <div id="doctor-box">
+            <h1>In Clinic Appointment</h1>
+            <ul>
+                <li><i class="far fa-calendar-plus"></i><%= new Date(date).toDateString() %></li>
+                <li><i class="far fa-clock"></i>From <%= time %></li>
+            </ul>
+            <div id="doctor-info">
+                <figure>
+                    <div>
+                        <img src="/uploads/<%= doctor.avtar?doctor.avtar:'default-user-image.png' %>" alt="doctor">
+                    </div>
+                    <figcaption>
+                        <ul>
+                            <li><%= doctor.name %></li>
+                            <li><%= doctor.hospitals %></li>
+                            <li><%= doctor.qualifications %></li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+            <div id="hospital-info">
+                <figure>
+                    <div>
+                        <img src="/assets/images/apollo hospital.jpeg" alt="hospital">
+                    </div>
+                    <figcaption>
+                        <ul>
+                            <li><%= hospital %></li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2><i class="fa fa-check-circle"></i> Appointment Confirmed!</h2>
+        <h5>We have sent you an SMS with the details</h5>
+        <h6>Patient's name:</h6>
+        <span><%= name %></span>
+        <h6>Mobile number</h6>
+        <span><%= mobile %></span>
+        <div class="btnGroup">
+            <button class="btn-text">Cancel Appointment</button>
+            <button class="btn-text" onclick="window.location.href='/reschedule?appointmentId=<%= appointmentId %>&slotId=<%= slotId %>'">Reschedule Appointment</button>
+        </div>
+    </section>
+</div>
+</main>
+
+<%- include("../templetes/footer"); %>
+
+<script src="/assets/script/header.js"></script>
+
+</body>
+</html>

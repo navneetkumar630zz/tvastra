@@ -1,0 +1,53 @@
+
+.model-box-background{
+    background: #0009;
+    z-index: 10;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+.model-box{
+    max-width: 90%;
+    width: 30rem;
+    background: var(--light-grey);
+    padding: 0.5rem;
+    transition: transform 0.2s ease-in;
+    animation: grow 0.3s ease-out;
+    &>div{
+        padding: 0.5rem;
+    }
+    .button-group{
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: flex-end;
+        grid-gap: 1rem;
+        button{
+            border: none;
+            &:hover{
+                color: var(--white);
+            }
+            &:disabled{
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+            &.danger{
+                background: var(--danger);
+            }
+            &.success{
+                background: var(--success);
+            }
+            &.text{
+                background: var(--text);
+            }
+        }
+    }
+}
+@keyframes grow {
+    from{ transform: scale(0.5); }
+    to{ transform: scale(1); }
+}

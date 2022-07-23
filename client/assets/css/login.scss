@@ -1,0 +1,40 @@
+@charset "utf-8";
+@import "theme";
+@import "../../templetes/css/header";
+@import "../../templetes/css/formPage";
+@import "../../templetes/css/toaster";
+
+#headerButtons a:first-child, #profile{
+    display: none;
+}
+form{
+    div{
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0;
+    }
+}
+#forgotPassword{
+    padding: 0;
+    margin: 0;
+    width: auto;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    font-size: 1rem;
+    background: none;
+    border: none;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+.inputContainer{
+    position: relative;
+    i{
+        position: absolute;
+        top: 2.4rem;
+        right: 1rem;
+        color: var(--text);
+        font-size: 1.3rem;
+    }
+}
